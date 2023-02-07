@@ -2,36 +2,27 @@ services:
   db:
     restart: always
     image: mongo
-    environnement:
+    environment:
       DB_PASSWORD: password
       DB_USER: user1
     ports:
-      - 6000:6000
+      - "6000:6000"
     healthcheck:
-      test: ["executable", "arg"]
-      interval: 1m30s
-      timeout: 30s
-      retries: 5
-      start_period: 30s
+      test:  ["CMD", "docker-healthcheck"]
+      interval: 10s
+      timeout: 2s
+      retries: 10
 
-back:
-  restart: always
-  depends_on:
-    db:
-      condition: service_healthy
-  environnement:
-    DB_HOST: db
-  build: ./back
-  ports:
-    - 4000:4000
-    - 4001:4001
-  volumes:
-    - ./back/src:/app/src
-  
-front:
-  restart: always
-  build: ./front
-  ports:
-    - 3000:3000
-  volumes:
-    - ./front/src:/app/src
+  back:
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: localhost
+    build: ./back
+    ports:
+      - 4000:4000
+      - 4001:4001
+    volumes:
+      - ./back/src:/app/src
