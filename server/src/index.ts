@@ -8,14 +8,6 @@ import express from "express";
 
 async function start(): Promise<void> {
   await db.initialize();
-  const app = express()
-
-
-  app.get('/', (req, res) => {
-    console.log("Got a request");
-    res.json({ message: "Hey, I'm Tom, the API" });
-  });
-
 
   const schema = await buildSchema({
     resolvers: [join(__dirname, "/resolvers/*.ts")],
