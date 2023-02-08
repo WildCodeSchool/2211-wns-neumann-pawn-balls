@@ -1,37 +1,35 @@
 services:
   db:
     restart: always
-    image: mongo
+    image: postgres:15-alpine
     environment:
-      DB_PASSWORD: password
-      DB_USER: user1
+      POSTGRES_PASSWORD: postgres
+      PGUSER: postgres
     ports:
-      - 6000:6000
+      - 5433:5432
     healthcheck:
-      test: ["executable", "arg"]
-      interval: 1m30s
-      timeout: 30s
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
       retries: 5
-      start_period: 30s
 
-  back:
+  server:
     restart: always
     depends_on:
       db:
         condition: service_healthy
     environment:
       DB_HOST: db
-    build: ./back
+    build: ./server
     ports:
       - 4000:4000
       - 4001:4001
     volumes:
-      - ./back/src:/app/src
-    
-  front:
+      - ./server/src:/app/src
+  client:
     restart: always
-    build: ./front
+    build: ./client
     ports:
-      - 3000:3000
+      - "3000:3000"
     volumes:
-      - ./front/src:/app/src
+      - ./client/src:/app/src
