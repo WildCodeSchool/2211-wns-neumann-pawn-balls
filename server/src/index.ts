@@ -4,17 +4,11 @@ import { ApolloServer } from "apollo-server";
 import { ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core";
 import { buildSchema } from "type-graphql";
 import { join } from "path";
-import mongoose, { ConnectOptions } from "mongoose";
 import express from "express";
 
 async function start(): Promise<void> {
   await db.initialize();
-  const app = express();
-
-
-  console.log("Connecting to MongoDB");
-  await mongoose.connect("mongodb://127.0.0.1:6000", { useNewUrlParser: true } as ConnectOptions);
-  console.log("Connected");
+  const app = express()
 
 
   app.get('/', (req, res) => {

@@ -3,7 +3,7 @@ import { join } from "path";
 import { env } from "./env";
 
 const datasource = new DataSource({
-  type: "mongodb",
+  type: "postgres",
   host: env.DB_HOST,
   port: env.DB_PORT,
   username: env.DB_USER,
