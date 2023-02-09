@@ -4,7 +4,14 @@ import { ApolloServer } from "apollo-server";
 import { ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core";
 import { buildSchema } from "type-graphql";
 import { join } from "path";
+import type User from "./entity/User";
 import express from "express";
+
+export interface ContextType {
+  req: express.Request;
+  res: express.Response;
+  currentUser?: User;
+}
 
 async function start(): Promise<void> {
   await db.initialize();
@@ -19,7 +26,6 @@ async function start(): Promise<void> {
     cache: "bounded",
     plugins: [ApolloServerPluginLandingPageLocalDefault({ embed: true })],
   });
-
   await server.listen().then(({ url }: { url: string }) => {
     console.log(`🚀  Server ready at ${url}`);
   });
