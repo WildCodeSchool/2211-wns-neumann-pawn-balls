@@ -1,0 +1,17 @@
+.form-control {
+    border-radius: 30px;
+    border: 1px solid #2E7A39;
+    text-indent:20px;
+}
+
+
+.cart {
+    font-size: 2rem;
+    color: #000000;
+}
+
+.search {
+    position: absolute;
+    top: 15px;
+    margin-left: 12px;
+}
