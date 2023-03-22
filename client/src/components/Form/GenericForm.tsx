@@ -3,7 +3,7 @@ import './LoginForm.css';
 
 export type FormProps = {
   formFields: FormField[];
-  onSubmit: (event: React.FormEvent<HTMLFormElement>) => EventTarget; //useless right now
+  onSubmit: (data: FormDataType) => boolean;
 };
 
 export type FormField = {
@@ -12,9 +12,9 @@ export type FormField = {
   validate: (name: string) => boolean;
 };
 
-export function GenericForm(prop: FormProps) {
-  type FormDataType = Record<string, string | number>;
+export type FormDataType = Record<string, string>;
 
+export function GenericForm(prop: FormProps) {
   let formData: FormDataType = {};
   prop.formFields.map((field) => {
     formData = {
@@ -31,13 +31,14 @@ export function GenericForm(prop: FormProps) {
   };
   const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(responseBody);
-    //Form submission happens here
+    prop.onSubmit(responseBody);
   };
+
   return (
     <form onSubmit={onSubmitHandler}>
       {prop.formFields.map((field) => {
         const className = `${field.name}_field`;
+        const [touched, setTouched] = useState(false);
         return (
           <div className={className} key={field.name}>
             <div>
@@ -47,7 +48,11 @@ export function GenericForm(prop: FormProps) {
               name={field.name}
               onChange={(e) => inputChangeHandler(e)}
               type={field.privateInfos ? 'password' : 'text'}
+              onBlur={() => setTouched(true)}
             />
+            {touched && !field.validate(responseBody[field.name]) && (
+              <div className="field_error">{field.name} is invalid.</div>
+            )}
           </div>
         );
       })}
