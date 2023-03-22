@@ -1,8 +1,13 @@
 import { useState } from 'react'
-import Modal from '../../../components/Modal'
+import ModalLogin from '../../../components/ModalLogin'
 import './nav.css'
 
 export default function Nav() {
+
+    const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <>
@@ -13,12 +18,15 @@ export default function Nav() {
                 <i className="bi search bi-search"></i>
             </div>
             <div className="col-4 d-flex justify-content-center align-items-center">
-                <p className="mb-0">Login</p>
+                <button type="button" className="btn btn" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={()=> handleShow()}>
+                    <p className="mb-0">Login</p>
+                </button>
                 <button className="btn my-2 my-sm-0" type="submit">
                     <i className="bi cart bi-cart2"></i>
                 </button>
             </div>
         </div>
+       {show && (<ModalLogin show={show} handleClose={handleClose} />)}
     </>
   )
 }
