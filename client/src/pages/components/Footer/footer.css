@@ -1,17 +1,17 @@
 .bg-footer {
-    background-color: #000000;
+  background-color: #000000;
 }
 
 .info {
-    background: rgba(252,253,255,.05);
-    padding: 2rem;
-    border-radius: 30px;
+  background: rgba(252, 253, 255, 0.05);
+  padding: 2rem;
+  border-radius: 30px;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 * {
-    color: #2E7A39;
+  color: #2e7a39;
 }
