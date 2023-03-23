@@ -8,10 +8,13 @@
 		"@testing-library/user-event": "^13.5.0",
 		"@types/jest": "^27.5.2",
 		"@types/node": "^16.18.12",
-		"@types/react": "^18.0.27",
 		"@types/react-dom": "^18.0.10",
+		"bootstrap": "^5.2.3",
+		"bootstrap-icons": "^1.10.3",
 		"react": "^18.2.0",
+		"react-bootstrap": "^2.7.2",
 		"react-dom": "^18.2.0",
+		"react-router-dom": "^6.4.2",
 		"react-scripts": "5.0.1",
 		"typescript": "^4.9.5",
 		"web-vitals": "^2.1.4"
@@ -41,6 +44,7 @@
 		]
 	},
 	"devDependencies": {
+		"@types/react": "^18.0.28",
 		"@types/testing-library__jest-dom": "^5.14.5"
 	}
 }
