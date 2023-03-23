@@ -1,5 +1,4 @@
 import { MockedProvider } from '@apollo/client/testing';
-import { describe } from '@jest/globals';
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { FormDataType, GenericForm } from './GenericForm';
