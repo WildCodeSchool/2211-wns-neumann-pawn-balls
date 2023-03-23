@@ -1,16 +1,16 @@
-import { Button } from "react-bootstrap";
+import { Button } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 
 type Props = {
-    show: boolean | undefined;
-    handleClose?: () => any;
-    handleShow?: () => void;
-}
+  show: boolean | undefined;
+  handleClose?: () => any;
+  handleShow?: () => void;
+};
 
-export default function ModalLogin({show, handleClose}: Props) {
+export default function ModalLogin({ show, handleClose }: Props) {
   return (
     <>
-       <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>S'inscrire</Modal.Title>
         </Modal.Header>
@@ -25,5 +25,5 @@ export default function ModalLogin({show, handleClose}: Props) {
         </Modal.Footer>
       </Modal>
     </>
-  )
+  );
 }
