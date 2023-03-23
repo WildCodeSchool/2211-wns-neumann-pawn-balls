@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { FormDataType, GenericForm, type FormField } from '../../components/form/GenericForm';
-import { isAlphanumeric, isLengthBetween, isValidEmail } from '../../lib/validator';
+import { FormDataType, GenericForm, type FormField } from '../../components/Form/GenericForm';
+import { isAlphanumeric, isLengthBetween, isValidEmail } from '../../utils/validator';
 
 //idea: maybe turn fields (username, email, password, ...) into classes or something
 //so we can just create a new instance of it for the props.

@@ -1,10 +1,14 @@
 import { describe, expect, it } from '@jest/globals';
-import { isAlphanumeric, isValidEmail } from './validator';
+import { isAlphanumeric, isLengthBetween, isValidEmail } from './validator';
 
 describe('validator functions', () => {
   describe('isLengthBetween', () => {
     it('should work properly', () => {
-      expect(true).toBe(false);
+      expect(isLengthBetween({ text: 'test', min: 3, max: 5 })).toBe(true);
+      expect(isLengthBetween({ text: 'test', min: 4, max: 4 })).toBe(true);
+      expect(isLengthBetween({ text: 'test', min: 5, max: 2 })).toBe(true); //argument error?
+      expect(isLengthBetween({ text: 'test', min: 2, max: 3 })).toBe(true);
+      expect(isLengthBetween({ text: 'test', min: 5, max: 7 })).toBe(true);
     });
   });
   describe('isAlphanumeric', () => {

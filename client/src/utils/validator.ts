@@ -1,3 +1,6 @@
+//For now validators are only throwing boolean, but they should throw errors later.
+//Possible errors: InvalidArgument, OversizedText, UndersizedText, InvalidEmail, NotAlphanumeric
+
 export function isLengthBetween({ text, min, max }: { text: string; min: number; max: number }) {
   if (!text) {
     return false;

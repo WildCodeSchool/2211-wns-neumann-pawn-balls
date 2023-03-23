@@ -40,7 +40,7 @@ export function GenericForm(prop: FormProps) {
         const className = `${field.name}_field`;
         const [touched, setTouched] = useState(false);
         return (
-          <div className={className} key={field.name}>
+          <div id={className} className={className} key={field.name}>
             <div>
               <label>{field.name}</label>
             </div>
