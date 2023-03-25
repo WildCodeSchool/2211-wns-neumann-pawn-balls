@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import ModalLogin from '../../../components/ModalLogin';
-import './nav.css';
+import { useState } from 'react'
+import ModalLogin from '../../../Auth/ModalLogin'
+import './nav.css'
 
 export default function Nav() {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false)
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
 
   return (
     <>
-      <div className="row">
+      <div className="row g-0">
         <div className="col-4"></div>
         <div className="col-4 form-group">
           <input className="form-control mt-2 inpt-search" type="text" />
@@ -33,5 +33,5 @@ export default function Nav() {
       </div>
       {show && <ModalLogin show={show} handleClose={handleClose} />}
     </>
-  );
+  )
 }
