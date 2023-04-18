@@ -37,10 +37,11 @@ export function GenericForm(prop: FormProps) {
   return (
     <form onSubmit={onSubmitHandler}>
       {prop.formFields.map((field) => {
+        console.log(field)
         const className = `${field.name}_field`;
         const [touched, setTouched] = useState(false);
         return (
-          <div id={className} className={className} key={field.name}>
+          <div id={className} className="container_form" key={field.name}>
             <div>
               <label>{field.name}</label>
             </div>
@@ -56,7 +57,7 @@ export function GenericForm(prop: FormProps) {
           </div>
         );
       })}
-      <input type="submit" />
+      <input className="btn-submit" type="submit" />
     </form>
   );
 }
