@@ -33,7 +33,7 @@ export default function ModalLogin({ show, handleClose }: Props) {
         <Modal.Body>
           {active === Routes.Signin && <SignIn goToSignUpPage={goTo} />}
 
-          {active === 'signup' && <SignUp goToSignInPage={goTo} />}
+          {active === Routes.Signup && <SignUp goToSignInPage={goTo} />}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
