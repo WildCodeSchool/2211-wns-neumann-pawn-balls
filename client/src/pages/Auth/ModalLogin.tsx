@@ -7,9 +7,9 @@ import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 
 type Props = {
-  show: boolean | undefined;
-  handleClose?: () => void;
-  handleShow?: () => void;
+  show: boolean | undefined
+  handleClose?: () => void
+  handleShow?: () => void
 }
 
 enum Routes {
@@ -28,16 +28,12 @@ export default function ModalLogin({ show, handleClose }: Props) {
     <>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>{active === Routes.Signin ? `S'inscrire` : 'Se connecter'}</Modal.Title>
+          <Modal.Title>{active === Routes.Signin ? 'Se connecter' : 'S\'inscrire'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {active === Routes.Signin && (
-            <SignIn goToSignUpPage={goTo} />
-          )}
-          
-          {active === 'signup' && (
-            <SignUp goToSignInPage={goTo} />
-          )}
+          {active === Routes.Signin && <SignIn goToSignUpPage={goTo} />}
+
+          {active === 'signup' && <SignUp goToSignInPage={goTo} />}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
