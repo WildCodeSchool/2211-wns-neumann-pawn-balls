@@ -26,21 +26,6 @@ class User {
   hashedPassword?: string;
 }
 
-// @ObjectType()
-// @Entity()
-// class User {
-//   @Field()
-//   @PrimaryGeneratedColumn()
-//   id: number;
-
-//   @Field()
-//   @Column({ unique: true })
-//   email: string;
-
-//   @Column()
-//   hashedPassword: string;
-// }
-
 @InputType()
 export class UserInput {
   @Field()

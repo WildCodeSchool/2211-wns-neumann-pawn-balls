@@ -26,7 +26,7 @@ services:
       - 4000:4000
       - 4001:4001
     volumes:
-      - ./server:/app
+      - ./server/src:/app/src
 
   client:
     image: wcs_project-client
@@ -35,4 +35,4 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./client:/app
+      - ./client/src:/app/src
