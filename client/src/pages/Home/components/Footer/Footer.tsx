@@ -1,4 +1,4 @@
-import './footer.css';
+import './footer.css'
 
 export default function Footer() {
   return (
@@ -71,5 +71,5 @@ export default function Footer() {
 
       <div className="text-center p-3">© 2023 Copyright : PAWNBALLS</div>
     </footer>
-  );
+  )
 }
