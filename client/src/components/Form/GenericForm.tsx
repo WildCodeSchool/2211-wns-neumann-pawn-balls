@@ -2,17 +2,17 @@ import React, { useState } from 'react'
 import './LoginForm.css'
 
 export type FormProps = {
-  formFields: FormField[];
-  onSubmit: (data: FormDataType) => boolean;
-};
+  formFields: FormField[]
+  onSubmit: (data: FormDataType) => void
+}
 
 export type FormField = {
-  name: string;
-  privateInfos?: boolean;
-  validate: (name: string) => boolean;
-};
+  name: string
+  privateInfos?: boolean
+  validate: (name: string) => boolean
+}
 
-export type FormDataType = Record<string, string>;
+export type FormDataType = Record<string, string>
 
 export function GenericForm(prop: FormProps) {
   let formData: FormDataType = {}
@@ -33,14 +33,12 @@ export function GenericForm(prop: FormProps) {
     event.preventDefault()
     prop.onSubmit(responseBody)
   }
-  const [touched, setTouched] = useState(false)
 
   return (
     <form onSubmit={onSubmitHandler}>
       {prop.formFields.map((field) => {
-        console.log(field)
         const className = `${field.name}_field`
-        
+        const [touched, setTouched] = useState(false)
         return (
           <div id={className} className="container_form" key={field.name}>
             <div>
