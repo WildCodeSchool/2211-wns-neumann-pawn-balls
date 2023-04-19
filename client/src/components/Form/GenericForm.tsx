@@ -1,45 +1,44 @@
-import React, { useState } from 'react';
-import './LoginForm.css';
+import React, { useState } from 'react'
+import './LoginForm.css'
 
 export type FormProps = {
-  formFields: FormField[];
-  onSubmit: (data: FormDataType) => boolean;
-};
+  formFields: FormField[]
+  onSubmit: (data: FormDataType) => void
+}
 
 export type FormField = {
-  name: string;
-  privateInfos?: boolean;
-  validate: (name: string) => boolean;
-};
+  name: string
+  privateInfos?: boolean
+  validate: (name: string) => boolean
+}
 
-export type FormDataType = Record<string, string>;
+export type FormDataType = Record<string, string>
 
 export function GenericForm(prop: FormProps) {
-  let formData: FormDataType = {};
+  let formData: FormDataType = {}
   prop.formFields.map((field) => {
     formData = {
       ...formData,
       [field.name]: '',
-    };
-  });
+    }
+  })
 
-  const [responseBody, setResponseBody] = useState<FormDataType>(formData);
+  const [responseBody, setResponseBody] = useState<FormDataType>(formData)
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setResponseBody({ ...responseBody, [name]: value });
-  };
+    const { name, value } = event.target
+    setResponseBody({ ...responseBody, [name]: value })
+  }
   const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    prop.onSubmit(responseBody);
-  };
+    event.preventDefault()
+    prop.onSubmit(responseBody)
+  }
 
   return (
     <form onSubmit={onSubmitHandler}>
       {prop.formFields.map((field) => {
-        console.log(field)
-        const className = `${field.name}_field`;
-        const [touched, setTouched] = useState(false);
+        const className = `${field.name}_field`
+        const [touched, setTouched] = useState(false)
         return (
           <div id={className} className="container_form" key={field.name}>
             <div>
@@ -55,9 +54,9 @@ export function GenericForm(prop: FormProps) {
               <div className="field_error">{field.name} is invalid.</div>
             )}
           </div>
-        );
+        )
       })}
       <input className="btn-submit" type="submit" />
     </form>
-  );
+  )
 }
