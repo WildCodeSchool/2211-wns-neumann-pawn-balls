@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { FormDataType, GenericForm, type FormField } from '../../components/Form/GenericForm';
-import { isAlphanumeric, isLengthBetween, isValidEmail } from '../../utils/validator';
+import React, { useState } from 'react'
+import { FormDataType, GenericForm, type FormField } from '../../components/Form/GenericForm'
+import { isAlphanumeric, isLengthBetween, isValidEmail } from '../../utils/validator'
 
 //idea: maybe turn fields (username, email, password, ...) into classes or something
 //so we can just create a new instance of it for the props.
@@ -25,10 +25,10 @@ export function RegisterScreen() {
   const [formData, setFormData] = useState<FormDataType>({});
 
   const onSubmit = (data: FormDataType) => {
-    setFormData(data);
-    console.log(formData);
-    return true;
-  };
+    setFormData(data)
+    console.log(formData)
+    return true
+  }
 
   return (
     <div className="App">

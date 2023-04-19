@@ -1,11 +1,11 @@
-import { MockedProvider } from '@apollo/client/testing';
-import { render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
-import { FormDataType, GenericForm } from './GenericForm';
+import { MockedProvider } from '@apollo/client/testing'
+import { render, screen } from '@testing-library/react'
+import { BrowserRouter } from 'react-router-dom'
+import { FormDataType, GenericForm } from './GenericForm'
 
 describe('GenericForm component', () => {
   it('should render the prop correctly', async () => {
-    const mocks: never[] = [];
+    const mocks: never[] = []
     const formField = [
       {
         name: 'username',
@@ -32,9 +32,9 @@ describe('GenericForm component', () => {
       { wrapper: BrowserRouter }
     );
 
-    expect(screen.getByText('username')).toBeVisible();
-    expect(screen.getByText('email')).toBeVisible();
-    expect(screen.getByText('password')).toBeVisible();
+    expect(screen.getByText('username')).toBeVisible()
+    expect(screen.getByText('email')).toBeVisible()
+    expect(screen.getByText('password')).toBeVisible()
     expect(view.baseElement).toMatchInlineSnapshot(`
       <body>
         <div>
@@ -87,6 +87,6 @@ describe('GenericForm component', () => {
           </form>
         </div>
       </body>
-    `);
-  });
-});
+    `)
+  })
+})

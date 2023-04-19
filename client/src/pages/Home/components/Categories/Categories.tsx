@@ -1,4 +1,4 @@
-import './categories.css';
+import './categories.css'
 
 export default function Categories() {
   return (
@@ -6,5 +6,5 @@ export default function Categories() {
       <div className="categories-container"></div>
       <h3>Sport extreme</h3>
     </div>
-  );
+  )
 }
