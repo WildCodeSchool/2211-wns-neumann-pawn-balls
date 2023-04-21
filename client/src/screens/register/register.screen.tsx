@@ -19,10 +19,10 @@ export function RegisterScreen() {
       privateInfos: true,
       validate: (name: string) => isLengthBetween({ text: name, min: 8, max: 200 }),
     },
-  ];
+  ]
 
   //useless for now, idk if it's gonna be necessary to keep once we link register to the back.
-  const [formData, setFormData] = useState<FormDataType>({});
+  const [formData, setFormData] = useState<FormDataType>({})
 
   const onSubmit = (data: FormDataType) => {
     setFormData(data)
@@ -35,5 +35,5 @@ export function RegisterScreen() {
       <GenericForm formFields={formFields} onSubmit={onSubmit} />
       <div>Already an account? Login!</div>
     </div>
-  );
+  )
 }

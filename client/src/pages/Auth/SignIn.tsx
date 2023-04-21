@@ -64,7 +64,7 @@ export default function SignIn({ goToSignUpPage }: Props) {
     <>
       <GenericForm formFields={formFieldsSignIn} onSubmit={onSubmit} />
       <Button variant="link" onClick={() => goToSignUpPage('signup')}>
-        Pas de compte ? Viens t'inscrire
+        {'Pas de compte ? Viens t\'inscrire'}
       </Button>
     </>
   )
