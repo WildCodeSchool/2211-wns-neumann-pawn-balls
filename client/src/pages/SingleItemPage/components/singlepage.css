@@ -2,12 +2,14 @@
     background-color: #EEEEEE;
     width: 70%;
     border-radius: 5px;
-    margin: auto;
     padding: 20px;
     display: flex;
     gap: 20px;
     flex-direction: row;
     min-height: 50%;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .presentation {
@@ -39,7 +41,7 @@
 .button {
     width: 200px;
    border: 1px grey;
-   border-radius: 2px;
+   border-radius: 5px;
    display: flex;
    flex-direction: row;
    align-items: center;
