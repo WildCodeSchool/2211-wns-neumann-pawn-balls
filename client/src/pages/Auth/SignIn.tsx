@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button'
 import { useState } from 'react'
 import { FormDataType, FormField, GenericForm } from '../../components/Form/GenericForm'
 import { isLengthBetween, isValidEmail } from '../../utils/validator'
-import { useLoginMutation, UserLoginInput } from '../../gql/generated/schema'
+import { useGetProfileQuery, useLoginMutation, UserLoginInput } from '../../gql/generated/schema'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useNavigate } from 'react-router-dom'
@@ -18,13 +18,19 @@ export default function SignIn({ goToSignUpPage }: Props) {
   })
   const navigate = useNavigate()
 
-  const [login] = useLoginMutation()
+  const [login, { error, data }] = useLoginMutation()
 
-  const onSubmit = async (data: FormDataType) => {
+  const { data: currentUser, client } = useGetProfileQuery({
+    errorPolicy: 'ignore',
+  })
+
+  // console.log('currentUser', client)
+
+  const onSubmit = async (dataForm: FormDataType) => {
     try {
-      setFormData(data as UserLoginInput)
-      await login({ variables: { data: formData } })
-      toast.success('🦄 Wow so easy!', {
+      console.log('DATA TOKEN', data)
+      await login({ variables: { data: dataForm as UserLoginInput } })
+      toast.success('Tu es connecté !', {
         position: 'bottom-right',
         autoClose: 3000,
         hideProgressBar: false,
@@ -35,17 +41,19 @@ export default function SignIn({ goToSignUpPage }: Props) {
         theme: 'light',
       })
       navigate('/dashboard')
-    } catch (err) {
-      toast.error('Désolé, une erreur est survenue', {
-        icon: '⛔️',
-        position: 'bottom-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      })
+    } catch (err: any) {
+      if (err?.message === 'invalid credentials') {
+        toast.error('Ton email ou mot de passe est pas valide, réessaie 🙂', {
+          icon: '⛔️',
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      }
     }
   }
 

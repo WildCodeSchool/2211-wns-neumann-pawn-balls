@@ -1,10 +1,17 @@
 import './categories.css'
 
-export default function Categories() {
+interface Props {
+  title: string
+  image: any
+}
+
+export default function Categories({ title, image }: Props) {
   return (
-    <div className="d-flex flex-column justify-content-center container">
-      <div className="categories-container"></div>
-      <h3>Sport extreme</h3>
+    <div className="test d-flex flex-column align-items-center justify-content-center container">
+      <div className="categories-container">
+        <img src={image} alt="extreme" />
+      </div>
+      <h3>{title}</h3>
     </div>
   )
 }
