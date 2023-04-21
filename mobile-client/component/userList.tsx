@@ -1,15 +1,26 @@
 
-import { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import { useGetUsersQuery } from "../gql/generated/schema";
+import { UserListItem } from "./user";
 
 export function UserList() {
 
-  const [users, setUsers] = useState([]);
-  const {data} = useGetUsersQuery();
-  console.log(data);
+  const { loading, data } = useGetUsersQuery();
+  const users = data?.users;
+
   return (
     <View style={styles.container}>
+      <FlatList
+        data={users}
+        refreshing={loading}
+        renderItem={
+          ({item}) =>
+            <UserListItem user={item}></UserListItem>
+        }
+        keyExtractor={(item) => item.id.toString()}
+        ListEmptyComponent={<Text>no user</Text>}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
+      />
     </View>
   );
 }

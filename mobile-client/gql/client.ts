@@ -12,7 +12,7 @@ export const client = new ApolloClient({
     },
   },
   link: createHttpLink({
-    uri: env?.REACT_APP_GRAPHQL_API_URL || 'http://localhost:4000',
+    uri: env?.REACT_APP_GRAPHQL_API_URL || 'http://192.168.1.96:4000',
     credentials: 'include',
   }),
 });
