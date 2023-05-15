@@ -24,7 +24,9 @@ class UserResolver {
     if (existingUser !== null) throw new ApolloError('EMAIL_ALREADY_EXISTS');
     const hashedPassword = await hashPassword(password ?? '');
 
-    return await datasource.getRepository(User).save({ firstname, lastname, email, hashedPassword, role });
+    return await datasource
+      .getRepository(User)
+      .save({ firstname, lastname, email, hashedPassword, role });
   }
 
   @Query(() => [User])
@@ -33,7 +35,10 @@ class UserResolver {
   }
 
   @Mutation(() => String)
-  async login(@Arg('data') { email, password }: UserLoginInput, @Ctx() { res }: ContextType): Promise<string> {
+  async login(
+    @Arg('data') { email, password }: UserLoginInput,
+    @Ctx() { res }: ContextType
+  ): Promise<string> {
     const user = await datasource.getRepository(User).findOneBy({ email });
 
     if (user === null || !(await verifyPassword(password ?? '', user.hashedPassword ?? '')))
@@ -63,17 +68,17 @@ class UserResolver {
   // requires: headers: { Authorization : Bearer <valid_token> }
   @Authorized<UserRole>([UserRole.admin])
   @Mutation(() => User)
-  async setUserAsAdmin(
-    // sans validate ca fait une erreur -> le montrer aux autres
-    @Arg('data', { validate: false }) { id }: UserAdminInput
-  ): Promise<User> {
+  async setUserAsAdmin(@Arg('data', { validate: false }) { id }: UserAdminInput): Promise<User> {
     const user = await datasource.getRepository(User).findOne({ where: { id } });
     if (user == null) {
       throw new Error('No User');
     }
-    const modifiedUser = await datasource.getRepository(User).save({ ...user, role: UserRole.admin });
-    console.log(modifiedUser);
-    return { ...user, role: UserRole.admin };
+    const modifiedUser = await datasource
+      .getRepository(User)
+      .save({ ...user, role: UserRole.admin });
+    delete modifiedUser.hashedPassword;
+    console.log({ modifiedUser });
+    return modifiedUser;
   }
 }
 
