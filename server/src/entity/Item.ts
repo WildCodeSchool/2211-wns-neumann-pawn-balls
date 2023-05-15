@@ -14,14 +14,14 @@ class Item {
     name?: string;
 
     @Field({ nullable: false })
-    @Column({ nullable: false, type: "number" })
+    @Column({ nullable: false, type: "float" })
     price!: number; 
 
     @Field()
     @Column({type: "varchar"})
     description!: string;
     
-    @OneToMany(() => UnitItem, (unit) => unit.item)
+    @OneToMany(() => UnitItem, (unit) => unit.itemId)
     units!: UnitItem["id"];
 }
 

@@ -14,7 +14,7 @@ class UnitItem {
     status!: boolean; 
 
     @ManyToOne(() => Item, (item) => item.units, { onDelete: "CASCADE" })
-    item!: Item;
+    itemId!: string;
 }
 
 @InputType()
@@ -23,8 +23,9 @@ export class UnitItemInput {
     status!: boolean;
 
     @Field()
-    item!: Item;
+    itemId!: string;
 }
 
 export type UpdatedUnitItem = Pick<UnitItem, 'id' | 'status'>
+
 export default UnitItem;

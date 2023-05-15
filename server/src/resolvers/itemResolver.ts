@@ -6,19 +6,13 @@ import { ApolloError } from "apollo-server-errors";
 @Resolver(Item)
 export class ItemResolver {
     @Query(() => [Item])
-    async skills(): Promise<Item[]> {
+    async items(): Promise<Item[]> {
       return await datasource.getRepository(Item).find();
     }
 
     @Mutation(() => Item)
-    async createItem(@Arg("data") data: ItemInput):Promise<Item> {
-            const { name, price, description } = data;
-
-            return await datasource.getRepository(Item).save({
-                name,
-                price,
-                description
-            });
+    async createItem(@Arg("data", {validate: false}) data: ItemInput):Promise<Item> {
+            return await datasource.getRepository(Item).save(data);
         }
 
     @Mutation(() => Boolean)
@@ -35,7 +29,7 @@ export class ItemResolver {
   ): Promise<UpdatedItem> {
     const { affected } = await datasource
       .getRepository(Item)
-      .update(id, { name, price });
+      .update(id, { name, price, description });
 
     if (affected === 0) throw new ApolloError("item not found", "NOT_FOUND");
 

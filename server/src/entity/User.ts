@@ -61,13 +61,13 @@ const hashingOptions = {
 
 export async function hashPassword(plain: string): Promise<string> {
   return await hash(plain, hashingOptions);
-}
+};
 
 export async function verifyPassword(
   plain: string,
   hashed: string
 ): Promise<boolean> {
   return await verify(hashed, plain, hashingOptions);
-}
+};
 
 export default User;
