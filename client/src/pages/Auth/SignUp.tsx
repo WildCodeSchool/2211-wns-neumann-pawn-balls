@@ -3,14 +3,11 @@ import Button from 'react-bootstrap/Button'
 import { FormDataType, FormField, GenericForm } from '../../components/Form/GenericForm'
 import { useCreateUserMutation, UserInput } from '../../gql/generated/schema'
 import { isLengthBetween, isValidEmail } from '../../utils/validator'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 interface Props {
   goToSignInPage: (route: string) => void
-}
-
-interface IWilderInput {
-  lastname?: string | null
-  email?: string | null
 }
 
 export default function SignUp({ goToSignInPage }: Props) {
@@ -20,16 +17,48 @@ export default function SignUp({ goToSignInPage }: Props) {
     email: '',
     password: '',
   })
-  const [name, setName] = useState<IWilderInput['lastname']>('')
-  const [email, setEmail] = useState<IWilderInput['email']>('')
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const [createUser] = useCreateUserMutation()
+  const [createUser, { error, data }] = useCreateUserMutation()
 
-  const onSubmit = (data: FormDataType) => {
-    setFormData(data as UserInput)
-    createUser({ variables: { data: formData } })
-    // setName('')
+  const onSubmit = async (dataForm: FormDataType) => {
+    try {
+      await createUser({ variables: { data: dataForm as UserInput } })
+      toast.success('Ton compte a bien été créer', {
+        icon: '✅',
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
+    } catch (err: any) {
+      if (err?.message === 'EMAIL_ALREADY_EXISTS') {
+        toast.error('Tu possèdes déjà un compte chez nous !!', {
+          icon: '⛔️',
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      } else {
+        toast.error('Une erreur est survenue, réessaie 🥹', {
+          icon: '⛔️',
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      }
+    }
   }
 
   const formFieldsSignUp: FormField[] = [
