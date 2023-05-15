@@ -28,7 +28,6 @@ export default function SignIn({ goToSignUpPage }: Props) {
 
   const onSubmit = async (dataForm: FormDataType) => {
     try {
-      console.log('DATA TOKEN', data)
       await login({ variables: { data: dataForm as UserLoginInput } })
       toast.success('Tu es connecté !', {
         position: 'bottom-right',
