@@ -1,9 +1,35 @@
-.container {
+.test {
+  width: 240px;
+}
+
+.test:hover {
+  animation-name: pulse;
+  animation-duration: 2s;
+  animation-timing-function: cubic-bezier(0.24, 0.57, 0.52, 1.03);
+}
+
+@keyframes pulse {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+  50% {
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+  to {
+    transform: scale3d(1, 1, 1);
+  }
 }
 
 .categories-container {
-  width: 220px;
+
+}
+
+h3 {
+  margin-top: 20px
+}
+
+img {
   height: 220px;
   border-radius: 50%;
-  border: 2px solid black;
+  width: 100%;
 }

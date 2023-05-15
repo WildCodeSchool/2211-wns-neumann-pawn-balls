@@ -1,11 +1,18 @@
 import Categories from './components/Categories/Categories'
-// import Footer from './components/Footer/Footer'
-// import Nav from './components/Nav/Nav'
+import { sports } from './fakeData/data'
+
 
 export default function Login() {
+  
   return (
     <div>
-      <Categories />
+      <div className="row">
+        <div className="col row mt-5">
+          {sports.map((el, i) => (
+            <Categories key={i} title={el.title} image={el.image} product={i} />
+          ))}
+        </div>
+      </div>
     </div>
   )
 }

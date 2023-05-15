@@ -6,6 +6,7 @@ import Nav from './pages/Home/components/Nav/Nav'
 import Home from './pages/Home/Home'
 import Dashboard from './pages/Dashboard/Dashboard'
 import { SinglePageItem } from './pages/SingleItemPage/components/SinglePageItem'
+import Item from './pages/Item/Item'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/items/:id" element={<SinglePageItem />} />
+        <Route path="/products/:id" element={<Item />} />
       </Routes>
       <Footer />
     </>
