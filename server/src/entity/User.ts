@@ -1,7 +1,12 @@
-import { Field, ObjectType, InputType } from "type-graphql";
-import { IsEmail, MinLength } from "class-validator";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { hash, argon2id, verify } from "argon2";
+import { argon2id, hash, verify } from 'argon2';
+import { IsEmail, MinLength } from 'class-validator';
+import { Field, InputType, ObjectType } from 'type-graphql';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+
+export enum UserRole {
+  admin = 'admin',
+  visitor = 'visitor',
+}
 
 @ObjectType()
 @Entity()
@@ -11,12 +16,16 @@ class User {
   id!: string;
 
   @Field({ nullable: false })
-  @Column({ nullable: false, length: 100, type: "varchar" })
+  @Column({ nullable: false, length: 100, type: 'varchar' })
   firstname?: string;
 
   @Field({ nullable: false })
-  @Column({ nullable: false, length: 100, type: "varchar" })
+  @Column({ nullable: false, length: 100, type: 'varchar' })
   lastname?: string;
+
+  @Field()
+  @Column({ default: UserRole.visitor, enum: UserRole })
+  role!: UserRole;
 
   @Field()
   @Column({ unique: true, nullable: false })
@@ -41,6 +50,9 @@ export class UserInput {
   @Field()
   @MinLength(8)
   password!: string;
+
+  @Field()
+  role: UserRole = UserRole.visitor;
 }
 
 @InputType()
@@ -54,6 +66,12 @@ export class UserLoginInput {
   password!: string;
 }
 
+@InputType()
+export class UserAdminInput {
+  @Field()
+  id!: string;
+}
+
 const hashingOptions = {
   type: argon2id,
   memoryCost: 2 ** 16,
@@ -63,10 +81,7 @@ export async function hashPassword(plain: string): Promise<string> {
   return await hash(plain, hashingOptions);
 };
 
-export async function verifyPassword(
-  plain: string,
-  hashed: string
-): Promise<boolean> {
+export async function verifyPassword(plain: string, hashed: string): Promise<boolean> {
   return await verify(hashed, plain, hashingOptions);
 };
 
