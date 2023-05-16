@@ -23,8 +23,16 @@ export class UnitItemInput {
     status!: boolean;
 
     @Field()
-    itemId!: string;
+    itemId?: string;
 }
+
+@InputType()
+export class UnitItemStatusInput {
+    @Field()
+    status!: boolean;
+
+}
+
 
 export type UpdatedUnitItem = Pick<UnitItem, 'id' | 'status'>
 

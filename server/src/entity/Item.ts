@@ -44,6 +44,19 @@ export class ItemInput {
 
 }
 
+@InputType()
+export class UpdatedItemInput {
+    @Field()
+    name?: string;
+
+    @Field()
+    price?: number;
+
+    @Field()
+    description?: string;
+
+}
+
 export type UpdatedItem = Pick<Item, 'id' | 'name' | 'price' | 'description'>
 
 export default Item;
