@@ -1,4 +1,4 @@
-import { Resolver, Int, Mutation, Arg, Query } from "type-graphql";
+import { Resolver, Mutation, Arg, Query } from "type-graphql";
 import UnitItem, { UnitItemInput, UnitItemStatusInput } from "../entity/UnitItem";
 import datasource from "../db";
 import { ApolloError } from "apollo-server-errors";
@@ -24,7 +24,7 @@ export class UnitItemResolver {
         }
 
     @Mutation(() => Boolean)
-    async deleteUnitItem(@Arg("id", () => Int) id: string): Promise<boolean> {
+    async deleteUnitItem(@Arg("id") id: string): Promise<boolean> {
         const { affected } = await datasource.getRepository(UnitItem).delete(id);
         if (affected === 0) throw new ApolloError("item not found", "NOT_FOUND");
         return true;

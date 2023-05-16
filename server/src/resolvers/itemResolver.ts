@@ -16,7 +16,7 @@ export class ItemResolver {
         }
 
     @Mutation(() => Boolean)
-    async deleteItem(@Arg("id", () => Int) id: number): Promise<boolean> {
+    async deleteItem(@Arg("id") id: string): Promise<boolean> {
         const { affected } = await datasource.getRepository(Item).delete(id);
         if (affected === 0) throw new ApolloError("item not found", "NOT_FOUND");
         return true;
