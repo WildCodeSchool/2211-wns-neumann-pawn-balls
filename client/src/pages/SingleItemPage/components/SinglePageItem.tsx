@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './singlepage.css'
+import { useItemsQuery } from '../../../gql/generated/schema'
 //import { useParams } from 'react-router-dom'
 
 export interface Item {
@@ -20,18 +21,18 @@ const itemExample: Item = {
 }
 
 export function SinglePageItem() {
-  const [item, setItem] = useState<Item>(itemExample)
+  
   //const { id } = useParams()
   return (
     <div className="mainContainer">
       <div className="img-container">pas de photo</div>
       <div className="presentation">
         <div className="header">
-          <h2>{item.name}</h2>
-          <p>{item.price} € par jour</p>
+          <h2>{itemExample.name}</h2>
+          <p>{itemExample.price} € par jour</p>
         </div>
         <div className="infos">
-          <p>{item.description}</p>
+          <p>{itemExample.description}</p>
           <div className="cart">
             <button type='button' className="button" onClick={() => console.log('ajouté au panier')}> 
               Ajouter au panier

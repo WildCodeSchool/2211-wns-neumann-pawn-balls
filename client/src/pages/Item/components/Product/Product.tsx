@@ -8,7 +8,10 @@ interface Props {
 export default function Product({ image, description }: Props) {
   return (
     <div className="card">
-      <img src={image} className="img-thumbnail" alt="..." />
+      {image ? 
+        <img src={image} className="img-thumbnail" alt="..." />
+        : null
+      }
       <div className="card-body">
         <p className="card-text">
           {description}
