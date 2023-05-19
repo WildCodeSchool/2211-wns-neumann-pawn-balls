@@ -4,6 +4,7 @@ import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from 'type-graphql';
 import { type ContextType } from '..';
 import datasource from '../db';
 import User, {
+  UpdateUserInput,
   UserAdminInput,
   UserInput,
   UserLoginInput,
@@ -63,6 +64,16 @@ class UserResolver {
   @Query(() => User)
   async profile(@Ctx() { currentUser }: ContextType): Promise<User> {
     return currentUser as User;
+  }
+
+  @Authorized()
+  @Mutation(() => User)
+  async updateProfile(
+    @Arg('data') data: UpdateUserInput,
+    @Ctx() { currentUser }: ContextType
+  ): Promise<User> {
+    if (typeof currentUser === 'undefined') throw new Error('no current user');
+    return await datasource.getRepository(User).save({ ...currentUser, ...data });
   }
 
   // requires: headers: { Authorization : Bearer <valid_token> }

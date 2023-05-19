@@ -6,7 +6,7 @@ import { UserListItem } from "./user";
 export function UserList() {
 
   const { loading, data } = useGetUsersQuery();
-  const users = data?.users;
+  const users = data?.getUsers;
 
   return (
     <View style={styles.container}>

@@ -33,22 +33,11 @@ class User {
 
   @Column()
   hashedPassword?: string;
+
+  @Field()
+  @Column({ nullable: true })
+  expoNotification?: string;
 }
-
-// @ObjectType()
-// @Entity()
-// class User {
-//   @Field()
-//   @PrimaryGeneratedColumn()
-//   id: number;
-
-//   @Field()
-//   @Column({ unique: true })
-//   email: string;
-
-//   @Column()
-//   hashedPassword: string;
-// }
 
 @InputType()
 export class UserInput {
@@ -79,6 +68,16 @@ export class UserLoginInput {
   @Field()
   @MinLength(8)
   password!: string;
+}
+
+@InputType()
+export class UpdateUserInput {
+  @Field({ nullable: true })
+  @IsEmail()
+  email?: string;
+
+  @Field({ nullable: true })
+  expoNotificationToken?: string;
 }
 
 @InputType()

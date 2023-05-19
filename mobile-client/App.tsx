@@ -7,6 +7,7 @@ import 'react-native-gesture-handler';
 import { client } from './gql/client';
 import HomeScreen from './screens/Home.screen';
 import LoginScreen from './screens/Login.screen';
+import NotificationScreen from './screens/Notification.screen';
 
 const Drawer = createDrawerNavigator();
 
@@ -17,6 +18,7 @@ export default function App() {
         <Drawer.Navigator>
           <Drawer.Screen name="LoginScreen" component={LoginScreen} />
           <Drawer.Screen name="HomeScreen" component={HomeScreen} />
+          <Drawer.Screen name="Notifs" component={NotificationScreen} />
         </Drawer.Navigator>
       </NavigationContainer>
     </ApolloProvider>

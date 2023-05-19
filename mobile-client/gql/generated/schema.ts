@@ -21,6 +21,7 @@ export type Mutation = {
   login: Scalars['String'];
   logout: Scalars['Boolean'];
   setUserAsAdmin: User;
+  updateProfile: User;
 };
 
 
@@ -38,15 +39,26 @@ export type MutationSetUserAsAdminArgs = {
   data: UserAdminInput;
 };
 
+
+export type MutationUpdateProfileArgs = {
+  data: UpdateUserInput;
+};
+
 export type Query = {
   __typename?: 'Query';
   getUsers: Array<User>;
   profile: User;
 };
 
+export type UpdateUserInput = {
+  email?: InputMaybe<Scalars['String']>;
+  expoNotificationToken?: InputMaybe<Scalars['String']>;
+};
+
 export type User = {
   __typename?: 'User';
   email: Scalars['String'];
+  expoNotification: Scalars['String'];
   firstname: Scalars['String'];
   id: Scalars['String'];
   lastname: Scalars['String'];
