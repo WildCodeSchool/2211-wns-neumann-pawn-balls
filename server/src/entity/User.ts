@@ -1,7 +1,8 @@
 import { argon2id, hash, verify } from 'argon2';
 import { IsEmail, MinLength } from 'class-validator';
 import { Field, InputType, ObjectType } from 'type-graphql';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import Order from './Order';
 
 export enum UserRole {
   admin = 'admin',
@@ -33,6 +34,10 @@ class User {
 
   @Column()
   hashedPassword?: string;
+
+  @OneToMany(() => Order, order => order.user)
+  @Field(() => [Order])
+  orders?: Order[];
 }
 
 // @ObjectType()
