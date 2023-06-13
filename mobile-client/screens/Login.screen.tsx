@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
 
   credentialFields: {
-    backgroundColor: 'lime',
+    backgroundColor: 'green',
     
   }
 });
