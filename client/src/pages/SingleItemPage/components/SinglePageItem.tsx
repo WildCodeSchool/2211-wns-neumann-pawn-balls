@@ -10,19 +10,6 @@ export interface Item {
   description: string
 }
 
-enum id {
-  string
-}
-
-const itemExample: Item = {
-  id: '1',
-  name: 'Article de sport',
-  price: 34,
-  // eslint-disable-next-line max-len
-  description:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer congue at ipsum et aliquam. Vestibulum suscipit enim et nulla blandit, aliquet maximus justo hendrerit. Donec dignissim ipsum id lorem ullamcorper, vitae faucibus magna faucibus. Proin tempus lacinia tincidunt. Ut mattis turpis eget semper scelerisque. Nunc in purus diam. Aenean dictum mauris eget pretium auctor. Vestibulum mollis at erat nec sollicitudin. Nullam quis sollicitudin libero. Aliquam lobortis ligula id tempor commodo. Nunc varius aliquam urna, eget sodales enim blandit quis. Sed maximus porttitor erat, nec fermentum eros finibus eget. Aenean arcu ante, aliquet aliquam lectus id, viverra efficitur quam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer consequat, libero in malesuada molestie, lacus sapien fringilla tortor, vitae volutpat felis mauris eget ex.',
-}
-
 
 export function SinglePageItem() {
   const {id} = useParams<{id: string}>()
