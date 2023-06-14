@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { FormDataType, GenericForm, type FormField } from '../../components/Form/GenericForm'
 import { isAlphanumeric, isLengthBetween, isValidEmail } from '../../utils/validator'
 

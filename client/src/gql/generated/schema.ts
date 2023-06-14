@@ -84,10 +84,15 @@ export type MutationUpdateUnitItemArgs = {
 
 export type Query = {
   __typename?: 'Query'
-  items: Array<Item>
+  getAllItems: Array<Item>
+  getOneItem: Item
   profile: User
   unitItems: Array<UnitItem>
   users: Array<User>
+}
+
+export type QueryGetOneItemArgs = {
+  id: Scalars['String']
 }
 
 export type QueryUnitItemsArgs = {
@@ -158,12 +163,20 @@ export type GetProfileQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetProfileQuery = { __typename?: 'Query'; profile: { __typename?: 'User'; id: string; email: string } }
 
+export type ItemQueryVariables = Exact<{
+  getOneItemId: Scalars['String']
+}>
+
+export type ItemQuery = {
+  __typename?: 'Query'
+  getOneItem: { __typename?: 'Item'; id: string; name: string; price: number; description: string }
+}
+
 export type ItemsQueryVariables = Exact<{ [key: string]: never }>
 
 export type ItemsQuery = {
-  map(arg0: (el: { description: string; image: any }, i: import("react").Key | null | undefined) => JSX.Element): import("react").ReactNode
   __typename?: 'Query'
-  items: Array<{ __typename?: 'Item'; id: string; name: string; price: number; description: string }>
+  getAllItems: Array<{ __typename?: 'Item'; id: string; name: string; price: number; description: string }>
 }
 
 export type LoginMutationVariables = Exact<{
@@ -258,9 +271,47 @@ export function useGetProfileLazyQuery(
 export type GetProfileQueryHookResult = ReturnType<typeof useGetProfileQuery>
 export type GetProfileLazyQueryHookResult = ReturnType<typeof useGetProfileLazyQuery>
 export type GetProfileQueryResult = Apollo.QueryResult<GetProfileQuery, GetProfileQueryVariables>
+export const ItemDocument = gql`
+  query Item($getOneItemId: String!) {
+    getOneItem(id: $getOneItemId) {
+      id
+      name
+      price
+      description
+    }
+  }
+`
+
+/**
+ * __useItemQuery__
+ *
+ * To run a query within a React component, call `useItemQuery` and pass it any options that fit your needs.
+ * When your component renders, `useItemQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useItemQuery({
+ *   variables: {
+ *      getOneItemId: // value for 'getOneItemId'
+ *   },
+ * });
+ */
+export function useItemQuery(baseOptions: Apollo.QueryHookOptions<ItemQuery, ItemQueryVariables>) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<ItemQuery, ItemQueryVariables>(ItemDocument, options)
+}
+export function useItemLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ItemQuery, ItemQueryVariables>) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<ItemQuery, ItemQueryVariables>(ItemDocument, options)
+}
+export type ItemQueryHookResult = ReturnType<typeof useItemQuery>
+export type ItemLazyQueryHookResult = ReturnType<typeof useItemLazyQuery>
+export type ItemQueryResult = Apollo.QueryResult<ItemQuery, ItemQueryVariables>
 export const ItemsDocument = gql`
   query Items {
-    items {
+    getAllItems {
       id
       name
       price

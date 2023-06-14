@@ -1,8 +1,8 @@
 query Items {
-  items {
+  getAllItems {
     id
     name
     price
     description
-  }
+  } 
 }

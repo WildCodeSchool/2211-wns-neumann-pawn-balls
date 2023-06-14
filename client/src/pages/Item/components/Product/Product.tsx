@@ -1,17 +1,23 @@
 import './products.css'
+import { useNavigate } from 'react-router-dom'
 
 interface Props {
+  id: string
     description: string
-    image: any
 }
 
-export default function Product({ image, description }: Props) {
+export default function Product({ id, description }: Props) {
+  console.log('hello')
+  const navigate = useNavigate()
+  function onClickDisplaySingleProduct() {
+    navigate(`/products/${id}`)
+  }
   return (
-    <div className="card">
-      {image ? 
+    <div className="card" onClick={onClickDisplaySingleProduct}>
+      {/*image ? 
         <img src={image} className="img-thumbnail" alt="..." />
         : null
-      }
+  */}
       <div className="card-body">
         <p className="card-text">
           {description}
