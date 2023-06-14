@@ -1,5 +1,5 @@
 import { Field, ObjectType, InputType } from "type-graphql";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import UnitItem from "./UnitItem";
 
 @ObjectType()
@@ -22,6 +22,7 @@ class Item {
     description!: string;
     
     @OneToMany(() => UnitItem, (unit) => unit.itemId)
+    @JoinColumn({name: "units"})
     units!: UnitItem["id"];
 }
 

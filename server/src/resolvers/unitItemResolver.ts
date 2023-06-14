@@ -15,12 +15,8 @@ export class UnitItemResolver {
 
     @Mutation(() => UnitItem)
     async createUnitItem(@Arg("data", { validate: false}) data: UnitItemInput):Promise<UnitItem> {
-            const { status, itemId } = data;
 
-            return await datasource.getRepository(UnitItem).save({
-                status,
-                itemId
-            });
+            return await datasource.getRepository(UnitItem).save(data);
         }
 
     @Mutation(() => Boolean)

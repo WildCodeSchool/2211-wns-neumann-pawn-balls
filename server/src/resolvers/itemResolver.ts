@@ -6,13 +6,29 @@ import { ApolloError } from "apollo-server-errors";
 @Resolver(Item)
 export class ItemResolver {
     @Query(() => [Item])
-    async items(): Promise<Item[]> {
-      return await datasource.getRepository(Item).find();
+    async getAllItems(): Promise<Item[]> {
+      const items = await datasource.getRepository(Item).find()
+      return items;
+    }
+
+    @Query(() => Item)
+    async getOneItem(@Arg("id") id: string): Promise<Item> {
+      const item = await datasource.getRepository(Item).findOne({where: {id}, relations: ["units"]});
+      
+      if (item === null) throw new ApolloError("item not found", "NOT_FOUND")
+      return item;
     }
 
     @Mutation(() => Item)
     async createItem(@Arg("data", {validate: false}) data: ItemInput):Promise<Item> {
-            return await datasource.getRepository(Item).save(data);
+          const item = new Item()
+          item.name = data.name;
+          item.description = data.description;
+          item.price = data.price;
+          const savedItem = await datasource.getRepository(Item).save(data);
+          console.log(savedItem);
+          
+          return await datasource.getRepository(Item).findOneOrFail({where: {id: savedItem.id}, relations: ['units']});
         }
 
     @Mutation(() => Boolean)
@@ -35,6 +51,7 @@ export class ItemResolver {
       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       ...(data.price ? { price: data.price }: {}),
     };
+   
     
     const updatedObject = await datasource
       .getRepository(Item)
