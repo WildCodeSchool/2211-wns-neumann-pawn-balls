@@ -66,6 +66,9 @@ export class OrderInput {
 
   @Field()
   userId?: string;
+
+  @Field()
+  unitItems!: string[];
 }
 
 export default Order;

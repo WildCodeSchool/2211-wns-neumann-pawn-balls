@@ -34,7 +34,21 @@ export class OrderResolver {
         order.bindingEmail = data.bindingEmail
         order.phoneNumber = data.phoneNumber
         order.user = user;
-      
+        
+        function checkUnitAvailability(unitId) {
+          const orderLine = await datasource.getRepository(OrderLine).findOne({where: {unitItem: unitId}})
+          
+          if (!!orderLine) {
+            const order = await datasource.getRepository(Order).findOne({where: {id: orderLine.order.id}})
+            
+          }
+    
+        }
+
+        // faire un check et le lien avec le unit item id
+        const units = data.unitItems
+        units.forEach((unit) => )
+
         const savedOrder = await datasource.getRepository(Order).save(order);
 
         const orderLine = new OrderLine()
