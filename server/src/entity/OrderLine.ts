@@ -1,7 +1,8 @@
 import { Field, InputType, ObjectType } from 'type-graphql';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import Order from './Order';
 import UnitItem from './UnitItem';
+// import UnitItem from './UnitItem';
 
 @Entity()
 @ObjectType()
@@ -22,9 +23,10 @@ class OrderLine {
   @Field(() => Order)
   order!: Order;
 
-  @OneToMany(() => UnitItem, unitItem => unitItem.orderLine, { nullable: true })
-  @Field(() => [UnitItem], { nullable: true })
-  unitItem?: UnitItem;
+  @ManyToOne(() => UnitItem, (unitItem) => unitItem.orderLines)
+  @JoinColumn({ name: "unitItemId" })
+  @Field(() => UnitItem)
+  unitItem!: UnitItem;
 }
 
 @InputType()

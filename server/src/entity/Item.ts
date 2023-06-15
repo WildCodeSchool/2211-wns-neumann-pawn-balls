@@ -21,7 +21,7 @@ class Item {
     @Column({type: "varchar"})
     description!: string;
     
-    @OneToMany(() => UnitItem, (unit) => unit.itemId)
+    @OneToMany(() => UnitItem, (unit) => unit.item)
     @JoinColumn({name: "units"})
     units!: UnitItem["id"];
 }

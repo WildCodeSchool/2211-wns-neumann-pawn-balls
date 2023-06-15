@@ -4,6 +4,7 @@ import  Order, { OrderInput } from '../entity/Order'
 import datasource from '../db'
 import User from '../entity/User'
 import OrderLine from '../entity/OrderLine'
+import UnitItem from '../entity/UnitItem'
 
 @Resolver(() => Order)
 export class OrderResolver {
@@ -25,7 +26,19 @@ export class OrderResolver {
         if (user === null) {
           throw new Error('User not found')
         }
-      
+
+        const unitItems: UnitItem[] = [];
+
+        for (const unitItemId of data.unitItems) {
+          // console.log('IOHZEOFHZJHBFUZEHFJZEFZ ==========>',typeof unitItemId)
+          const unitItem = await datasource.getRepository(UnitItem).findOne({ where: { id: unitItemId } })
+          console.log('UNIT ITEM PETASSE', unitItem)
+          if (unitItem != null) {
+            unitItems.push(unitItem);
+          }
+        }
+
+
         const order = new Order()
         order.cost = data.cost
         order.start = data.start
@@ -33,24 +46,12 @@ export class OrderResolver {
         order.address = data.address
         order.bindingEmail = data.bindingEmail
         order.phoneNumber = data.phoneNumber
-        order.user = user;
+        order.user = user
+
         
+        order.unitItems = unitItems.map(unitItem => unitItem.id);
 
-        function checkUnitAvailability(unitId) {
-          const orderLine = await datasource.getRepository(OrderLine).find({
-            where: {
-              unitItem: unitId,
-              
-            }
-          })
-          if (orderLine) {
-            throw new Error('already rented on this period')
-          }
-        }
-
-        // faire un check et le lien avec le unit item id
-        const units = data.unitItem
-        units.forEach((unit) => console.log(unit))
+        // console.log('IOHZEOFHZJHBFUZEHFJZEFZ ==========>',typeof order.unitItems)
 
         const savedOrder = await datasource.getRepository(Order).save(order);
 

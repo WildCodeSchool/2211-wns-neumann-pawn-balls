@@ -1,5 +1,5 @@
 import { Field, ObjectType, InputType } from "type-graphql";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import Item from "./Item";
 import OrderLine from './OrderLine';
 
@@ -15,17 +15,17 @@ class UnitItem {
     status!: string; 
 
     @ManyToOne(() => Item, (item) => item.units, { onDelete: "CASCADE" })
-    itemId!: string;
+    @JoinColumn({ name: "itemId" })
+    item!: Item;
 
-    @ManyToOne(() => OrderLine, orderLine => orderLine.unitItem)
-    @Field(() => OrderLine)
-    orderLine!: OrderLine;
+    @OneToMany(() => OrderLine, (orderLine) => orderLine.unitItem)
+    orderLines!: OrderLine[];
 }
 
 @InputType()
 export class UnitItemInput {
     @Field()
-    status!: boolean;
+    status!: string;
 
     @Field()
     itemId?: string;
@@ -34,7 +34,7 @@ export class UnitItemInput {
 @InputType()
 export class UnitItemStatusInput {
     @Field()
-    status!: boolean;
+    status!: string;
 
 }
 
