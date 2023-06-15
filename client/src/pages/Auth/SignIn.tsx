@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import Button from 'react-bootstrap/Button'
 import { useState } from 'react'
 import { FormDataType, FormField, GenericForm } from '../../components/Form/GenericForm'
