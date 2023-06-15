@@ -35,19 +35,22 @@ export class OrderResolver {
         order.phoneNumber = data.phoneNumber
         order.user = user;
         
+
         function checkUnitAvailability(unitId) {
-          const orderLine = await datasource.getRepository(OrderLine).findOne({where: {unitItem: unitId}})
-          
-          if (!!orderLine) {
-            const order = await datasource.getRepository(Order).findOne({where: {id: orderLine.order.id}})
-            
+          const orderLine = await datasource.getRepository(OrderLine).find({
+            where: {
+              unitItem: unitId,
+              
+            }
+          })
+          if (orderLine) {
+            throw new Error('already rented on this period')
           }
-    
         }
 
         // faire un check et le lien avec le unit item id
-        const units = data.unitItems
-        units.forEach((unit) => )
+        const units = data.unitItem
+        units.forEach((unit) => console.log(unit))
 
         const savedOrder = await datasource.getRepository(Order).save(order);
 

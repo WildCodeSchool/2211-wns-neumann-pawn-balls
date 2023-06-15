@@ -1,0 +1,14 @@
+name: client-build
+
+on: pull_request
+
+jobs:
+  integration-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+      - name: Make env file
+        run: cd client && npm i
+      - name: "Go to client and run tests"
+        run: cd client && npm run test

@@ -17,7 +17,7 @@ class UnitItem {
     @ManyToOne(() => Item, (item) => item.units, { onDelete: "CASCADE" })
     itemId!: string;
 
-    @ManyToOne(() => OrderLine, orderLine => orderLine.unitItems)
+    @ManyToOne(() => OrderLine, orderLine => orderLine.unitItem)
     @Field(() => OrderLine)
     orderLine!: OrderLine;
 }
