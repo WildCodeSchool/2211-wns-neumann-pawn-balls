@@ -1,0 +1,8 @@
+query Item($getOneItemId: String!) {
+  getOneItem(id: $getOneItemId) {
+    id
+    name
+    price
+    description
+  }
+}

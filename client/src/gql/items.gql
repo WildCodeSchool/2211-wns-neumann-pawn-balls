@@ -1,0 +1,8 @@
+query Items {
+  getAllItems {
+    id
+    name
+    price
+    description
+  } 
+}

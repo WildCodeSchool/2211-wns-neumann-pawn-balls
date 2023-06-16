@@ -5,15 +5,14 @@ import { useNavigate } from 'react-router-dom'
 interface Props {
   title: string
   image: any
-  product: number
 }
 
-export default function Categories({ title, image, product }: Props) {
+export default function Categories({ title, image }: Props) {
   const navigate = useNavigate()
 
 
   const handleClick = () => {
-    navigate(`/products/${product}`)
+    navigate('/products')
   }
   return (
     <div
