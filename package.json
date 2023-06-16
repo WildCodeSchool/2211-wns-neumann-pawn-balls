@@ -12,5 +12,8 @@
     "type": "git",
     "url": "git@github.com:WildCodeSchool/2211-wns-neumann-pawn-balls.git"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "testing": "^2.0.1"
+  }
 }
