@@ -11,4 +11,4 @@ jobs:
       - name: "Install npm and deps"
         run: cd client && pnpm install
       - name: "Go to client and run tests"
-        run: cd client && pnpm run test
+        run: cd client && npm run test

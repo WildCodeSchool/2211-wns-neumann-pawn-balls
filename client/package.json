@@ -27,7 +27,6 @@
     "react-router-dom": "^6.9.0",
     "react-scripts": "5.0.1",
     "react-toastify": "^9.1.2",
-    "testing": "link:@apollo/client/testing",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -37,7 +36,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "prettier --config .prettierrc.json '**/*[.ts | .tsx]' --write",
-  
     "codegen": "graphql-codegen --config codegen.yml --watch"
   },
   "eslintConfig": {

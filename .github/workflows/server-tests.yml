@@ -9,6 +9,6 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
       - name: "Install npm and deps"
-        run: cd server && pnpm install
+        run: cd server && npm install
       - name: "Go to server and run tests"
-        run: cd server && pnpm run test
+        run: cd server && npm run test
