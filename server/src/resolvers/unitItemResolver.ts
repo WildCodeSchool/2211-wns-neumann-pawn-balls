@@ -7,7 +7,13 @@ import { Equal } from "typeorm";
 @Resolver(UnitItem)
 export class UnitItemResolver {
     @Query(() => [UnitItem])
-    async unitItems(@Arg("itemId") itemId: string,): Promise<UnitItem[]> {
+    async getAllUnitItems(): Promise<UnitItem[]> {
+      const units = await datasource.getRepository(UnitItem).find()
+      return units;
+    }
+
+    @Query(() => [UnitItem])
+    async getUnitItemsOfOneItem(@Arg("itemId") itemId: string,): Promise<UnitItem[]> {
         const units = await datasource.getRepository(UnitItem).find({where: {itemId: Equal(itemId)}})
         if (units === null) throw new ApolloError("units not found", "NOT_FOUND")
         return units
@@ -15,7 +21,7 @@ export class UnitItemResolver {
 
     @Mutation(() => UnitItem)
     async createUnitItem(@Arg("data", { validate: false}) data: UnitItemInput):Promise<UnitItem> {
-
+            
             return await datasource.getRepository(UnitItem).save(data);
         }
 

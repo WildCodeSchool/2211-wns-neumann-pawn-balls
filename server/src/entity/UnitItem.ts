@@ -15,7 +15,7 @@ class UnitItem {
     status!: string; 
 
     @ManyToOne(() => Item, (item) => item.units, { onDelete: "CASCADE" })
-    itemId!: string;
+    itemId!: Item;
 
     @ManyToOne(() => OrderLine, orderLine => orderLine.unitItem)
     @Field(() => OrderLine)
@@ -25,7 +25,7 @@ class UnitItem {
 @InputType()
 export class UnitItemInput {
     @Field()
-    status!: boolean;
+    status!: string;
 
     @Field()
     itemId?: string;
@@ -34,7 +34,7 @@ export class UnitItemInput {
 @InputType()
 export class UnitItemStatusInput {
     @Field()
-    status!: boolean;
+    status!: string;
 
 }
 

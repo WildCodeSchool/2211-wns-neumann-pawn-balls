@@ -26,7 +26,6 @@ export class ItemResolver {
           item.description = data.description;
           item.price = data.price;
           const savedItem = await datasource.getRepository(Item).save(data);
-          console.log(savedItem);
           
           return await datasource.getRepository(Item).findOneOrFail({where: {id: savedItem.id}, relations: ['units']});
         }

@@ -4,6 +4,7 @@ import  Order, { OrderInput } from '../entity/Order'
 import datasource from '../db'
 import User from '../entity/User'
 import OrderLine from '../entity/OrderLine'
+import UnitItem from '../entity/UnitItem'
 
 @Resolver(() => Order)
 export class OrderResolver {
@@ -36,7 +37,7 @@ export class OrderResolver {
         order.user = user;
         
 
-        function checkUnitAvailability(unitId) {
+        /* function checkUnitAvailability(unitId) {
           const orderLine = await datasource.getRepository(OrderLine).find({
             where: {
               unitItem: unitId,
@@ -47,19 +48,31 @@ export class OrderResolver {
             throw new Error('already rented on this period')
           }
         }
-
+      */
         // faire un check et le lien avec le unit item id
-        const units = data.unitItem
-        units.forEach((unit) => console.log(unit))
+        // const units = data.unitItem
+        // units.forEach((unit) => console.log(unit))
 
         const savedOrder = await datasource.getRepository(Order).save(order);
+        
+        for (let i=0; i<data.unitItems.length; i++) {
+          const unit = await datasource.getRepository(UnitItem).findOneOrFail({
+            where: {
+              id: data.unitItems[i],
+            }, relations: ['itemId']
+          })
+          if (unit != null) {
+            console.log(unit, "unit unit unit unit unit")
+            const orderLine = new OrderLine()
+            // orderLine.articleName = unit.item.name
+            // orderLine.articleCost = unit.item.price
+            orderLine.order = savedOrder
+            orderLine.unitItem = unit
+            await datasource.getRepository(OrderLine).save(orderLine)
+          }
+        }
+        
 
-        const orderLine = new OrderLine()
-        orderLine.articleName = 'Example Article'
-        orderLine.articleCost = 20
-        orderLine.order = savedOrder
-
-        await datasource.getRepository(OrderLine).save(orderLine)
       
         return await datasource.getRepository(Order).findOneOrFail({
             where: {

@@ -67,7 +67,7 @@ export class OrderInput {
   @Field()
   userId?: string;
 
-  @Field()
+  @Field(() => [String])
   unitItems!: string[];
 }
 
