@@ -1,9 +1,7 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import Constants from 'expo-constants';
 
-const env = Constants.expoConfig?.extra;
-console.log({ env });
-
+const env = Constants.expoConfig?.extra; // always undefined...
 export const client = new ApolloClient({
   cache: new InMemoryCache(),
   defaultOptions: {

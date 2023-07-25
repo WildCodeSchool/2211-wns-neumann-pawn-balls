@@ -1,8 +1,9 @@
-query getUsers {
-  users {
+query GetUsers {
+  getUsers {
     email
     firstname
     id
     lastname
+    role
   }
 }

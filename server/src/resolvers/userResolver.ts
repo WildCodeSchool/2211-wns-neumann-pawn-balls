@@ -30,7 +30,7 @@ class UserResolver {
   }
 
   @Query(() => [User])
-  async users(): Promise<User[]> {
+  async getUsers(): Promise<User[]> {
     return await datasource.getRepository(User).find();
   }
 
@@ -77,7 +77,6 @@ class UserResolver {
       .getRepository(User)
       .save({ ...user, role: UserRole.admin });
     delete modifiedUser.hashedPassword;
-    console.log({ modifiedUser });
     return modifiedUser;
   }
 }
