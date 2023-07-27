@@ -39,9 +39,5 @@ beforeEach(async () => {
 });
 
 afterAll(async () => {
-  try {
-    await db.destroy();
-  } catch (err) {
-    console.error(err);
-  }
+  await db.destroy();
 });
