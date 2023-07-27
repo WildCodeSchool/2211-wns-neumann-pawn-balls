@@ -33,8 +33,8 @@ jobs:
           echo CORS_ALLOWED_ORIGINS=http://localhost:3000,http://localhost:4000,http://192.168.1.7:4000 >> ./integration-tests/.env
           echo SERVER_HOST=localhost >> ./integration-tests/.env
           echo SERVER_PORT=4000 >> ./integration-tests/.env
-          echo DB_HOST=testDB >> ./integration-tests/.env
-          echo DB_PORT=5432 >> ./integration-tests/.env
+          echo DB_HOST=localhost >> ./integration-tests/.env
+          echo DB_PORT=5433 >> ./integration-tests/.env
           echo DB_USER=postgres >> ./integration-tests/.env
           echo DB_PASS=postgres >> ./integration-tests/.env
           echo DB_NAME=postgres >> ./integration-tests/.env
