@@ -1,8 +1,10 @@
-import db from '../server/src/db';
+import db from "../server/src/db";
 
 async function clearDB() {
   const entities = db.entityMetadatas;
-  return Promise.all(entities.map((entity) => db.getRepository(entity.name).delete({})));
+  return Promise.all(
+    entities.map((entity) => db.getRepository(entity.name).delete({}))
+  );
 }
 
 //TO FIX
@@ -37,5 +39,9 @@ beforeEach(async () => {
 });
 
 afterAll(async () => {
-  await db.destroy();
+  try {
+    await db.destroy();
+  } catch (err) {
+    console.error(err);
+  }
 });
