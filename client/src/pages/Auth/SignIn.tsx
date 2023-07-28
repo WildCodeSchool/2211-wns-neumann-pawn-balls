@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import Button from 'react-bootstrap/Button'
 import { useState } from 'react'
 import { FormDataType, FormField, GenericForm } from '../../components/Form/GenericForm'
@@ -71,7 +72,7 @@ export default function SignIn({ goToSignUpPage }: Props) {
     <>
       <GenericForm formFields={formFieldsSignIn} onSubmit={onSubmit} />
       <Button variant="link" onClick={() => goToSignUpPage('signup')}>
-        Pas de compte ? Viens t'inscrire
+        {'Pas de compte ? Viens t\'inscrire'}
       </Button>
     </>
   )

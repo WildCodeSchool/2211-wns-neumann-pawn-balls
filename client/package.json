@@ -13,6 +13,7 @@
     "@types/react": "^18.0.27",
     "@types/react-bootstrap": "^0.32.32",
     "@types/react-dom": "^18.0.10",
+    "@types/react-router-dom": "^5.3.3",
     "animate.css": "^4.1.1",
     "axios": "^1.1.2",
     "bootstrap": "^5.2.3",
@@ -26,12 +27,11 @@
     "react-router-dom": "^6.9.0",
     "react-scripts": "5.0.1",
     "react-toastify": "^9.1.2",
-    "testing": "link:@apollo/client/testing",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "dev": "nodemon run start",
-    "start": "DISABLE_ESLINT_PLUGIN=true react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

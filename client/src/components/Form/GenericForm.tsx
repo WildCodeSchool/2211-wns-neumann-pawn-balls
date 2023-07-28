@@ -33,12 +33,12 @@ export function GenericForm(prop: FormProps) {
     event.preventDefault()
     prop.onSubmit(responseBody)
   }
+  const [touched, setTouched] = useState(false)
 
   return (
     <form onSubmit={onSubmitHandler}>
       {prop.formFields.map((field) => {
         const className = `${field.name}_field`
-        const [touched, setTouched] = useState(false)
         return (
           <div id={className} className="container_form" key={field.name}>
             <div>

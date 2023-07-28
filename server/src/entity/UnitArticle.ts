@@ -1,4 +1,4 @@
-import { Field, ObjectType } from 'type-graphql';
+/* import { Field, ObjectType } from 'type-graphql';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import OrderLine from './OrderLine';
 
@@ -18,4 +18,4 @@ class UnitArticle {
   orderLine!: OrderLine;
 }
 
-export default UnitArticle;
+export default UnitArticle; */

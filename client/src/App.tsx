@@ -3,6 +3,7 @@ import { ToastContainer } from 'react-toastify'
 import './App.css'
 import CartPage from './pages/Cart/CartPage'
 import Dashboard from './pages/Dashboard/Dashboard'
+import { SinglePageItem } from './pages/SingleItemPage/components/SinglePageItem'
 import Home from './pages/Home/Home'
 import Nav from './pages/Home/components/Nav/Nav'
 import Item from './pages/Item/Item'
@@ -21,7 +22,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/products/:id" element={<Item />} />
+          <Route path="/products" element={<Item />} />
+          <Route path="/products/:id" element={<SinglePageItem />} />
           <Route path="/cart" element={<CartPage />} />
         </Routes>
         {

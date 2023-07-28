@@ -1,7 +1,7 @@
 import { Field, InputType, ObjectType } from 'type-graphql';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
 import Order from './Order';
-import UnitArticle from './UnitArticle';
+import UnitItem from './UnitItem';
 
 @Entity()
 @ObjectType()
@@ -22,9 +22,9 @@ class OrderLine {
   @Field(() => Order)
   order!: Order;
 
-  @OneToMany(() => UnitArticle, unitArticle => unitArticle.orderLine, { nullable: true })
-  @Field(() => [UnitArticle], { nullable: true })
-  unitArticles?: UnitArticle[];
+  @OneToMany(() => UnitItem, unitItem => unitItem.orderLine, { nullable: true })
+  @Field(() => [UnitItem], { nullable: true })
+  unitItem?: UnitItem;
 }
 
 @InputType()
@@ -34,6 +34,9 @@ export class CreateOrderLineInput {
 
   @Field()
   articleCost!: number;
+
+  @Field()
+  unitItems!: string;
 }
 
 

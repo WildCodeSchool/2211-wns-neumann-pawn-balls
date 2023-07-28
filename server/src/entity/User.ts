@@ -40,21 +40,6 @@ class User {
   orders?: Order[];
 }
 
-// @ObjectType()
-// @Entity()
-// class User {
-//   @Field()
-//   @PrimaryGeneratedColumn()
-//   id: number;
-
-//   @Field()
-//   @Column({ unique: true })
-//   email: string;
-
-//   @Column()
-//   hashedPassword: string;
-// }
-
 @InputType()
 export class UserInput {
   @Field()
@@ -99,10 +84,10 @@ const hashingOptions = {
 
 export async function hashPassword(plain: string): Promise<string> {
   return await hash(plain, hashingOptions);
-}
+};
 
 export async function verifyPassword(plain: string, hashed: string): Promise<boolean> {
   return await verify(hashed, plain, hashingOptions);
-}
+};
 
 export default User;
