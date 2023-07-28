@@ -3,7 +3,7 @@ import { Arg, Mutation, Query, Resolver } from 'type-graphql';
 import { Equal } from 'typeorm';
 import datasource from '../db';
 import UnitItem, { UnitItemInput, UnitItemStatusInput } from '../entity/UnitItem';
-import { UnitItemInputToUnitItem } from '../entity/mappers/UnitItem';
+import { UnitItemInputToUnitItem } from '../entity/mappers/UnitItemInputToUnitItem';
 
 @Resolver(UnitItem)
 export class UnitItemResolver {
@@ -13,19 +13,18 @@ export class UnitItemResolver {
     return units;
   }
 
+  // better to get a list from item directly?
   @Query(() => [UnitItem])
   async getUnitItemsOfOneItem(@Arg('itemId') itemId: string): Promise<UnitItem[]> {
-    const units = await datasource
-      .getRepository(UnitItem)
-      .find({ where: { itemId: Equal(itemId) } });
+    const units = await datasource.getRepository(UnitItem).find({ where: { item: Equal(itemId) } });
     if (units === null) throw new ApolloError('units not found', 'NOT_FOUND');
     return units;
   }
 
   @Mutation(() => UnitItem)
   async createUnitItem(@Arg('data', { validate: false }) data: UnitItemInput): Promise<UnitItem> {
-    const unitItemToSave = UnitItemInputToUnitItem(data);
-    const savedData = await datasource.getRepository(UnitItem).save(unitItemToSave);
+    const unitItemToSave = await UnitItemInputToUnitItem(data);
+    const savedData = (await datasource.getRepository(UnitItem).save(unitItemToSave)) as UnitItem;
     return savedData;
   }
 
