@@ -1,22 +1,26 @@
-import * as React from "react"
 import { SVGProps } from "react"
-const TrekSvg = (props: SVGProps<SVGSVGElement>) => (
+
+interface Props extends SVGProps<SVGSVGElement> {
+  color?: string
+}
+
+const TrekSvg = ({ color = "#545454", ...rest }: Props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={24}
     height={36}
     fill="none"
-    {...props}
+    {...rest}
   >
     <path
-      stroke="#545454"
+      stroke={color}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={3.478}
       d="m2.435 33.804 3.478-6.956m6.957 6.956v-6.956L7.652 21.63l1.74-10.434 5.217 6.956 5.217 3.478M9.391 4.24a1.74 1.74 0 1 0 3.479 0 1.74 1.74 0 0 0-3.479 0Z"
     />
     <path
-      stroke="#545454"
+      stroke={color}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={3.478}

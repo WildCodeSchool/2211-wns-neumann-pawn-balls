@@ -96,7 +96,7 @@ const Button = styled.button<{ $createAccount?: boolean }>`
       css`
         background-color: black;
         color: white;
-      `}
+  `}
 `
 const BasketLogo = styled(ShoppingBasket2)`
   color: black;
