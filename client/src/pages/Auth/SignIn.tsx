@@ -1,5 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
-import Button from 'react-bootstrap/Button'
 import { useState } from 'react'
 import { FormDataType, FormField, GenericForm } from '../../components/Form/GenericForm'
 import { isLengthBetween, isValidEmail } from '../../utils/validator'
@@ -7,6 +5,7 @@ import { useGetProfileQuery, useLoginMutation, UserLoginInput } from '../../gql/
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useNavigate } from 'react-router-dom'
+import { styled } from 'styled-components'
 
 interface Props {
   goToSignUpPage: (route: string) => void
@@ -24,8 +23,6 @@ export default function SignIn({ goToSignUpPage }: Props) {
   const { data: currentUser, client } = useGetProfileQuery({
     errorPolicy: 'ignore',
   })
-
-  // console.log('currentUser', client)
 
   const onSubmit = async (dataForm: FormDataType) => {
     try {
@@ -59,11 +56,11 @@ export default function SignIn({ goToSignUpPage }: Props) {
 
   const formFieldsSignIn: FormField[] = [
     {
-      name: 'email',
+      name: 'Adresse mail',
       validate: (name: string) => isValidEmail({ text: name }),
     },
     {
-      name: 'password',
+      name: 'Mot de passe',
       privateInfos: true,
       validate: (password: string) => isLengthBetween({ text: password, min: 8, max: 200 }),
     },
@@ -71,9 +68,16 @@ export default function SignIn({ goToSignUpPage }: Props) {
   return (
     <>
       <GenericForm formFields={formFieldsSignIn} onSubmit={onSubmit} />
-      <Button variant="link" onClick={() => goToSignUpPage('signup')}>
-        {'Pas de compte ? Viens t\'inscrire'}
+      <Button onClick={() => goToSignUpPage('signup')}>
+        Pas de compte ? Viens t'inscrire
       </Button>
     </>
   )
 }
+
+const Button = styled.button`
+  background-color: transparent;
+  color: black;
+  border: none;
+  cursor: pointer;
+`

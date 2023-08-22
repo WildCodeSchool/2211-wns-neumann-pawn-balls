@@ -2,9 +2,9 @@ import { useState } from 'react'
 import SignUp from './SignUp'
 import SignIn from './SignIn'
 import { useCallback } from 'react'
+import Close from './Close'
 
-import Button from 'react-bootstrap/Button'
-import Modal from 'react-bootstrap/Modal'
+import styled from 'styled-components'
 
 type Props = {
   show: boolean | undefined
@@ -25,22 +25,67 @@ export default function ModalLogin({ show, handleClose }: Props) {
   }, [])
 
   return (
-    <>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>{active === Routes.Signin ? 'Se connecter' : 'S\'inscrire'}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+    <ModalContainer show={show}>
+      <ModalContent>
+        <ModalHeader>
+          <CloseButton onClick={handleClose}>
+            <Close />
+          </CloseButton>
+        </ModalHeader>
+        <ModalBody>
+          <ModalTitle>{active === Routes.Signin ? 'Se connecter' : 'S\'inscrire'}</ModalTitle>
           {active === Routes.Signin && <SignIn goToSignUpPage={goTo} />}
-
           {active === Routes.Signup && <SignUp goToSignInPage={goTo} />}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Fermer
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
+        </ModalBody>
+      </ModalContent>
+    </ModalContainer>
   )
 }
+
+const ModalContainer = styled.div<{ show?: boolean | undefined }>`
+  display: ${(props) => (props.show ? 'block' : 'none')};
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+`
+
+const ModalContent = styled.div`
+  background-color: white;
+  border-radius: 8px;
+  width: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`
+
+const ModalHeader = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  padding: 10px 20px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+`
+
+const ModalTitle = styled.span`
+  margin-top: 20px;
+  font-size: 22px;
+  font-weight: bold;
+  color: black;
+`
+
+const CloseButton = styled.button`
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 18px;
+`
+
+const ModalBody = styled.div`
+  padding: 50px;
+`

@@ -16,9 +16,9 @@ export default function Nav() {
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
   const handleShowInput = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.stopPropagation();
-    setShowInput(true);
-  };
+    event.stopPropagation()
+    setShowInput(true)
+  }
 
   const [logout] = useLogoutMutation()
   const navigate = useNavigate()
@@ -26,16 +26,16 @@ export default function Nav() {
   useEffect(() => {
     const handleOutsideClick = (event: { target: any }) => {
       if (searchInputRef.current && !searchInputRef.current.contains(event.target)) {
-        setShowInput(false);
+        setShowInput(false)
       }
-    };
+    }
 
-    document.addEventListener('click', handleOutsideClick);
+    document.addEventListener('click', handleOutsideClick)
 
     return () => {
-      document.removeEventListener('click', handleOutsideClick);
-    };
-  }, []);
+      document.removeEventListener('click', handleOutsideClick)
+    }
+  }, [])
 
   const {
     data: currentUser,
@@ -50,22 +50,30 @@ export default function Nav() {
       <Pawnballs />
       <ButtonContainer>
         {showInput && <SearchInput ref={searchInputRef} type="text" placeholder="Rechercher..." />}
-        {!showInput && 
+        {!showInput && (
           <ContainerSearch onClick={handleShowInput}>
             <SearchBtn />
           </ContainerSearch>
-        }
+        )}
         <BasketLogo />
         {currentUser?.profile ? (
-          <Button onClick={async () => {
-            await logout()
-            client.resetStore()
-            navigate('/')
-          }}>Se déconnecter</Button>
+          <Button
+            onClick={async () => {
+              await logout()
+              client.resetStore()
+              navigate('/')
+            }}
+          >
+            Se déconnecter
+          </Button>
         ) : (
           <Button onClick={() => handleShow()}>Se connecter</Button>
         )}
-        {!currentUser?.profile && <Button $createAccount={true} >Créer un compte</Button>}
+        {!currentUser?.profile && (
+          <Button $createAccount onClick={() => handleShow()}>
+            Créer un compte
+          </Button>
+        )}
       </ButtonContainer>
       {show && <ModalLogin show={show} handleClose={handleClose} />}
     </Container>
@@ -92,11 +100,11 @@ const Button = styled.button<{ $createAccount?: boolean }>`
   background-color: white;
 
   ${(props) =>
-      props.$createAccount &&
-      css`
-        background-color: black;
-        color: white;
-  `}
+    props.$createAccount &&
+    css`
+      background-color: black;
+      color: white;
+    `}
 `
 const BasketLogo = styled(ShoppingBasket2)`
   color: black;
@@ -107,8 +115,8 @@ const BasketLogo = styled(ShoppingBasket2)`
 
 const ContainerSearch = styled.button`
   border-radius: 90px;
-  background-color: #4ECB71;
-  border: #4ECB71;
+  background-color: #4ecb71;
+  border: #4ecb71;
   width: 30px;
   height: 30px;
   margin-right: 20px;
@@ -125,11 +133,10 @@ const Pawnballs = styled(Logo)`
   margin: 12px 16px;
 `
 
-
 const SearchInput = styled.input`
   width: 325px;
   border-radius: 50px;
   padding: 6px 15px;
   border: 1px solid black;
   margin-right: 20px;
-`;
+`

@@ -1,11 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useRef, useState } from 'react'
-import Button from 'react-bootstrap/Button'
 import { FormDataType, FormField, GenericForm } from '../../components/Form/GenericForm'
 import { useCreateUserMutation, UserInput } from '../../gql/generated/schema'
 import { isLengthBetween, isValidEmail } from '../../utils/validator'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { styled } from 'styled-components'
 
 interface Props {
   goToSignInPage: (route: string) => void
@@ -85,9 +85,14 @@ export default function SignUp({ goToSignInPage }: Props) {
   return (
     <>
       <GenericForm formFields={formFieldsSignUp} onSubmit={onSubmit} />
-      <Button variant="link" onClick={() => goToSignInPage('signin')}>
-        {'T\'as déjà un compte ? Viens ici !'}
-      </Button>
+      <Button onClick={() => goToSignInPage('signin')}>Déjà un compte ? Connecte toi</Button>
     </>
   )
 }
+
+const Button = styled.button`
+  background-color: transparent;
+  color: black;
+  border: none;
+  cursor: pointer;
+`
