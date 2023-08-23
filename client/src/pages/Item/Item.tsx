@@ -20,11 +20,11 @@ export default function Item() {
   return (
     <div>
       <div className="row">
-        <div className="col row ms-3 mt-5">
-          {currentItems?.getAllItems?.map((el: { id: string; description: string }, i: Key | null | undefined) => (
-            <Product key={i} id={el.id} description={el.description} />
+        {/* <div className="col row ms-3 mt-5">
+          {items.map((el, i) => (
+            <Product key={i} description={el.description} image={el.image} />
           ))}
-        </div>
+        </div> */}
       </div>
     </div>
   )

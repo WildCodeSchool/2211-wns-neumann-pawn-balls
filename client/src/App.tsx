@@ -9,6 +9,7 @@ import Nav from './pages/Home/components/Nav/Nav'
 import Item from './pages/Item/Item'
 import { AppContext, Context } from './services/context/Context'
 import { fakeCart } from './services/context/FakeData.cart'
+import Footer from './pages/Home/components/Footer/Footer'
 
 function App() {
   const context: AppContext = {
@@ -27,7 +28,7 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
         </Routes>
         {
-          //<Footer />
+          <Footer />
         }
       </Context.Provider>
     </>
