@@ -12,12 +12,12 @@ interface Props {
 export default function Categories({ title, image, price, product }: Props) {
   const navigate = useNavigate()
 
-  const handleClick = () => {
-    navigate('/products')
+  const handleClick = (productId: number) => {
+    navigate(`/products/${productId}`)
   }
   return (
     <Container>
-      <Card onClick={handleClick}>
+      <Card onClick={() => handleClick(product)}>
         <ImgContainer>
           <Img src={image} />
         </ImgContainer>
