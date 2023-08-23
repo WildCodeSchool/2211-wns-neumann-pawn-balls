@@ -8,7 +8,7 @@ services:
     ports:
       - 5433:5432
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready"]
+      test: ['CMD-SHELL', 'pg_isready']
       interval: 10s
       timeout: 5s
       retries: 5
@@ -36,3 +36,12 @@ services:
       - 3000:3000
     volumes:
       - ./client/src:/app/src
+
+  discord:
+    image: wcs_project-discord
+    restart: always
+    build: ./discord
+    ports:
+      - 3001:3001
+    volumes:
+      - ./discord/src:/app/src

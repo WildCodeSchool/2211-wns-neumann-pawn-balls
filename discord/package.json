@@ -1,0 +1,21 @@
+{
+  "name": "pawn-balls",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "ts-node scripts/discord-message.ts "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:WildCodeSchool/2211-wns-neumann-pawn-balls.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.13.0",
+    "dotenv": "^16.3.1",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "ts-dotenv": "^0.9.1",
+    "typescript": "^5.1.6"
+  }
+}
