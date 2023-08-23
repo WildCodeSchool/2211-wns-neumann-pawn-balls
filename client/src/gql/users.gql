@@ -1,8 +1,8 @@
-query Users {
-  users {
-    id
-    firstname
-    lastname
-    email
-  }
-}
+# query getUsers {
+#   users {
+#     id
+#     firstname
+#     lastname
+#     email
+#   }
+# }
