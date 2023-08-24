@@ -17,7 +17,13 @@ export default function SignIn({ goToSignUpPage }: Props) {
     password: '',
   })
   const navigate = useNavigate()
-
+  function navigateToDashboard() {
+    const role = decodeURIComponent(document.cookie)
+    console.log('role')
+    if (role === 'admin') {
+      navigate('/dashboard')
+    }
+  }
   const [login, { error, data }] = useLoginMutation()
 
   const { data: currentUser, client } = useGetProfileQuery({
@@ -25,9 +31,9 @@ export default function SignIn({ goToSignUpPage }: Props) {
   })
 
   const onSubmit = async (dataForm: FormDataType) => {
-    console.log(dataForm)
     try {
-      await login({ variables: { data: dataForm as UserLoginInput } })
+      const res = await login({ variables: { data: dataForm as UserLoginInput } })
+      console.log(res)
       toast.success('Tu es connecté !', {
         position: 'bottom-right',
         autoClose: 3000,
@@ -38,7 +44,8 @@ export default function SignIn({ goToSignUpPage }: Props) {
         progress: undefined,
         theme: 'light',
       })
-      navigate('/dashboard')
+      navigateToDashboard()
+      
     } catch (err: any) {
       if (err?.message === 'invalid credentials') {
         toast.error('Ton email ou mot de passe est pas valide, réessaie 🙂', {

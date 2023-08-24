@@ -9,7 +9,7 @@ import User, {
   UserLoginInput,
   UserRole,
   hashPassword,
-  verifyPassword,
+  verifyPassword
 } from '../entity/User';
 import { env } from '../env';
 
@@ -45,7 +45,7 @@ class UserResolver {
       throw new ApolloError('invalid credentials', 'INVALID_CREDS');
 
     const token = jwt.sign({ userId: user.id }, env.JWT_PRIVATE_KEY);
-    res.cookie('token', token, {
+    res.cookie(token, user.role, {
       httpOnly: true,
       secure: env.NODE_ENV === 'production',
     });
