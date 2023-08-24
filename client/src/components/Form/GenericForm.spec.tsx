@@ -10,27 +10,30 @@ describe('GenericForm component', () => {
       {
         name: 'username',
         validate: (name: string) => true,
+        label: 'Pseudo'
       },
       {
         name: 'email',
         validate: (name: string) => true,
+        label: 'Adresse mail'
       },
       {
         name: 'password',
         privateInfos: true,
         validate: (name: string) => true,
+        label: 'Mot de passe'
       },
-    ];
+    ]
     const onSubmit = (data: FormDataType): boolean => {
-      return true;
-    };
+      return true
+    }
 
     const view = render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <GenericForm formFields={formField} onSubmit={onSubmit} />
       </MockedProvider>,
       { wrapper: BrowserRouter }
-    );
+    )
 
     expect(screen.getByText('username')).toBeVisible()
     expect(screen.getByText('email')).toBeVisible()
@@ -45,7 +48,7 @@ describe('GenericForm component', () => {
             >
               <div>
                 <label>
-                  username
+                  Pseudo
                 </label>
               </div>
               <input
@@ -59,7 +62,7 @@ describe('GenericForm component', () => {
             >
               <div>
                 <label>
-                  email
+                  Adresse mail
                 </label>
               </div>
               <input
@@ -73,7 +76,7 @@ describe('GenericForm component', () => {
             >
               <div>
                 <label>
-                  password
+                  Mot de passe
                 </label>
               </div>
               <input

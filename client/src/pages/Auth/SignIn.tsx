@@ -25,6 +25,7 @@ export default function SignIn({ goToSignUpPage }: Props) {
   })
 
   const onSubmit = async (dataForm: FormDataType) => {
+    console.log(dataForm)
     try {
       await login({ variables: { data: dataForm as UserLoginInput } })
       toast.success('Tu es connecté !', {
@@ -56,13 +57,15 @@ export default function SignIn({ goToSignUpPage }: Props) {
 
   const formFieldsSignIn: FormField[] = [
     {
-      name: 'Adresse mail',
+      name: 'email',
       validate: (name: string) => isValidEmail({ text: name }),
+      label: 'Adresse mail'
     },
     {
-      name: 'Mot de passe',
+      name: 'password',
       privateInfos: true,
       validate: (password: string) => isLengthBetween({ text: password, min: 8, max: 200 }),
+      label: 'Mot de passe'
     },
   ]
   return (

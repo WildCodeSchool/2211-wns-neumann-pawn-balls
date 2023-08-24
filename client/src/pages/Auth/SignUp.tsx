@@ -66,19 +66,23 @@ export default function SignUp({ goToSignInPage }: Props) {
     {
       name: 'firstname',
       validate: (name: string) => isLengthBetween({ text: name, min: 2, max: 200 }),
+      label: 'Prénom',
     },
     {
       name: 'lastname',
       validate: (lastname: string) => isLengthBetween({ text: lastname, min: 2, max: 200 }),
+      label: 'Nom de famille'
     },
     {
       name: 'email',
       validate: (email: string) => isValidEmail({ text: email }),
+      label: 'Adresse mail'
     },
     {
       name: 'password',
       privateInfos: true,
       validate: (password: string) => isLengthBetween({ text: password, min: 8, max: 200 }),
+      label: 'Mot de passe'
     },
   ]
 

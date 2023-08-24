@@ -11,6 +11,7 @@ export type FormField = {
   name: string
   privateInfos?: boolean
   validate: (name: string) => boolean
+  label: string
 }
 
 export type FormDataType = Record<string, string>
