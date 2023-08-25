@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useNavigate } from 'react-router-dom'
 import { styled } from 'styled-components'
+import Cookies from 'js-cookie'
 
 interface Props {
   goToSignUpPage: (route: string) => void
@@ -17,13 +18,14 @@ export default function SignIn({ goToSignUpPage }: Props) {
     password: '',
   })
   const navigate = useNavigate()
-  function navigateToDashboard() {
-    const role = decodeURIComponent(document.cookie)
-    console.log('role')
+  /*function navigateToDashboard(token: string) {
+    const role = Cookies.get(token)
+    console.log('token', token)
+    console.log('role',)
     if (role === 'admin') {
       navigate('/dashboard')
     }
-  }
+  }*/
   const [login, { error, data }] = useLoginMutation()
 
   const { data: currentUser, client } = useGetProfileQuery({
@@ -44,8 +46,10 @@ export default function SignIn({ goToSignUpPage }: Props) {
         progress: undefined,
         theme: 'light',
       })
-      navigateToDashboard()
-      
+      if (res.data) {
+        //navigateToDashboard(res.data.login)
+        navigate('/dashboard')
+      }
     } catch (err: any) {
       if (err?.message === 'invalid credentials') {
         toast.error('Ton email ou mot de passe est pas valide, réessaie 🙂', {

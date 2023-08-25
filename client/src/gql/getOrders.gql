@@ -1,0 +1,17 @@
+query GetOrders {
+  getOrders {
+    id
+    cost
+    start
+    end
+    address
+    bindingEmail
+    phoneNumber
+    user {
+      id
+    }
+    orderLines {
+        id
+    }
+  }
+}
