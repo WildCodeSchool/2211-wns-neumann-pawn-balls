@@ -35,7 +35,6 @@ export default function SignIn({ goToSignUpPage }: Props) {
   const onSubmit = async (dataForm: FormDataType) => {
     try {
       const res = await login({ variables: { data: dataForm as UserLoginInput } })
-      console.log(res)
       toast.success('Tu es connecté !', {
         position: 'bottom-right',
         autoClose: 3000,

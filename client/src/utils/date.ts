@@ -1,4 +1,4 @@
-import { format } from 'date-fns'
+import { format, isPast } from 'date-fns'
 import { fr } from 'date-fns/locale'
 
 export function shiftDate({ initialDate = new Date(), days }: { initialDate?: Date; days: number }) {
@@ -52,7 +52,10 @@ export function dateToWrittenDate(date: Date, isFrench = true) {
 }
 
 
-export function getDateFromTimeStamps(timestamp: string) {
-  if (!timestamp) return null
+export function getDateFromTimeStamps(timestamp: string): string {
   return format(new Date(timestamp), 'dd/MM/yyyy HH:mm', { locale: fr })
+}
+
+export function isAnteriorToToday(timestamp: string): boolean {
+  return isPast(new Date(timestamp))
 }

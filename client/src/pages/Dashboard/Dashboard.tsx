@@ -8,7 +8,7 @@ export default function Dashboard() {
   const [menuOption, setMenuOption] = useState('order')
   return (
     <Container>
-      <Menu setMenuOption={setMenuOption}/>
+      <Menu setMenuOption={setMenuOption} />
       {menuOption === 'order' ? <OrderList /> : null}
     </Container>
   )
