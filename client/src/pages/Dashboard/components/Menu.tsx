@@ -1,15 +1,23 @@
 import styled from 'styled-components'
 
-export default function Menu() {
+interface Props {
+    menuOption: string
+    setMenuOption: React.Dispatch<React.SetStateAction<string>>
+  }
+
+export default function Menu({menuOption, setMenuOption}: Props) {
+    function handleChangeMenuOption(newMenuValue: string) {
+        setMenuOption(newMenuValue)
+    }  
     return (
         <Container>
-            <MenuOption>
-                <Label>
+            <MenuOption onClick={() => handleChangeMenuOption('orders')}>
+                <Label $isClickedDiv={menuOption === 'orders' ? true : false}>
                     Commandes
                 </Label>
             </MenuOption>
-            <MenuOption>
-                <Label>
+            <MenuOption onClick={() => handleChangeMenuOption('products')}>
+                <Label $isClickedDiv={menuOption === 'products' ? true : false}>
                     Tous nos articles
                 </Label>
             </MenuOption>
@@ -35,8 +43,8 @@ const MenuOption = styled.div`
     cursor: pointer
 `
 
-const Label = styled.h3`
-    color: #4ECB71;
+const Label = styled.h3<{$isClickedDiv: boolean}>`
+    color: ${(props) => (props.$isClickedDiv ? '#4ECB71' : '#000000')};
     font-size: 12px;
     font-weight: 600
 `

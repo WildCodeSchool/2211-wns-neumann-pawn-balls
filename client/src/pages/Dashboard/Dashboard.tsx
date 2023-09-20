@@ -2,14 +2,16 @@ import { useGetProfileQuery } from '../../gql/generated/schema'
 import {useState} from 'react'
 import styled from 'styled-components'
 import OrderList from './components/OrderList'
+import ProductList from './components/ProductList'
 import Menu from './components/Menu'
 
 export default function Dashboard() {
-  //const [menuOption, setMenuOption] = useState('order')
+  const [menuOption, setMenuOption] = useState<string>('orders')
   return (
     <Container>
-      <Menu />
-      <OrderList />
+      <Menu menuOption={menuOption} setMenuOption={setMenuOption} />
+      {menuOption === 'orders' ? <OrderList /> : null}
+      {menuOption === 'products' ? <ProductList /> : null}
     </Container>
   )
 }

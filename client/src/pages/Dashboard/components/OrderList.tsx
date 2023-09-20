@@ -61,7 +61,6 @@ export default function OrderList() {
   useEffect(() => {
     setActualOrders(filterOrders(data?.getOrders, '0'))
     setPastOrders(filterOrders(data?.getOrders, '1'))
-    console.log('refresh')
   }, [data])
 
   function mapRows(dataList: Pick<Order, 'id' | 'start' | 'end' | 'bindingEmail' | 'address'>[]): OrderRows[] {
@@ -76,8 +75,15 @@ export default function OrderList() {
   }
 
   const handleChangeItem = (newValue: string) => {
-    console.log(newValue)
     setIndexValue(newValue)
+  }
+
+  if (loading) {
+    return (
+      <div className="spinner-border" role="status">
+        <span className="sr-only">Loading...</span>
+      </div>
+    )
   }
 
   return (
