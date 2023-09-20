@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export default function Menu({setMenuOption}) {
+export default function Menu() {
     return (
         <Container>
             <MenuOption>

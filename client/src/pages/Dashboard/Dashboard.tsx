@@ -5,11 +5,11 @@ import OrderList from './components/OrderList'
 import Menu from './components/Menu'
 
 export default function Dashboard() {
-  const [menuOption, setMenuOption] = useState('order')
+  //const [menuOption, setMenuOption] = useState('order')
   return (
     <Container>
-      <Menu setMenuOption={setMenuOption} />
-      {menuOption === 'order' ? <OrderList /> : null}
+      <Menu />
+      <OrderList />
     </Container>
   )
 }
