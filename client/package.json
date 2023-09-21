@@ -2,6 +2,9 @@
   "name": "front",
   "version": "0.1.0",
   "private": true,
+  "resolutions": {
+    "styled-components": "^6.0.5"
+  },
   "dependencies": {
     "@apollo/client": "^3.7.10",
     "@hookform/error-message": "^2.0.1",
