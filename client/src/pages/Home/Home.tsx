@@ -1,39 +1,8 @@
-import Categories from './components/Categories/Categories'
-import { sports } from './fakeData/data'
-import styled from 'styled-components'
-import FilterBar from './components/FilterBar/FilterBar'
+import { useItems } from '../../mock/items/useItems'
+import { HomeDisplay } from './HomeDisplay'
 
 export default function Home() {
-  return (
-    <Container>
-      <CardRowWrapper>
-        <FilterBar />
-        <CardRow>
-          {sports.map((el, i) => (
-            <Categories key={i} title={el.title} image={el.image} price={el.price} product={i} />
-          ))}
-        </CardRow>
-      </CardRowWrapper>
-    </Container>
-  )
+  const items = useItems()
+
+  return <HomeDisplay items={items} />
 }
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-
-const CardRowWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-`
-
-const CardRow = styled.div`
-  margin-top: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-`

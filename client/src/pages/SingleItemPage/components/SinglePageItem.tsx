@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useItemQuery } from '../../../gql/generated/schema'
 import './singlepage.css'
 
@@ -10,37 +10,55 @@ export interface Item {
   description: string
 }
 
-
 export function SinglePageItem() {
-  const {id} = useParams<{id: string}>()
+  const { id } = useParams<{ id: string }>()
 
-  if (!id) {throw new Error()}
+  if (!id) {
+    throw new Error()
+  }
 
-  const {loading, data: currentItem} = useItemQuery({
+  const navigate = useNavigate()
+
+  const { loading, data } = useItemQuery({
     variables: {
-       getOneItemId: id
-    }
+      getOneItemId: id,
+    },
   })
+
+  const currentItem = data?.getOneItem
 
   if (loading) {
     return (
-      <div className="spinner-border" role="status">
+      <div>
         <span className="sr-only">Loading...</span>
+        <div className="spinner-border" role="status"></div>
       </div>
     )
   }
+
+  if (!currentItem) {
+    // eslint-disable-next-line quotes
+    alert("Error: Couldn't find the item")
+    navigate('/')
+    return <></>
+  }
+
+  const onAddToCartClick = () => {
+    console.log(`ajouté au panier: ${currentItem}`)
+  }
+
   return (
     <div className="mainContainer">
       <div className="img-container">pas de photo</div>
       <div className="presentation">
         <div className="header">
-          <h2>{currentItem?.getOneItem.name}</h2>
-          <p>{currentItem?.getOneItem.price} € par jour</p>
+          <h2>{currentItem.name}</h2>
+          <p>{currentItem.price} € par jour</p>
         </div>
         <div className="infos">
-          <p>{currentItem?.getOneItem.description}</p>
+          <p>{currentItem.description}</p>
           <div className="cart">
-            <button type='button' className="button" onClick={() => console.log('ajouté au panier')}> 
+            <button type="button" className="button" onClick={() => onAddToCartClick()}>
               Ajouter au panier
               <i className="bi cart bi-cart2"></i>
             </button>
