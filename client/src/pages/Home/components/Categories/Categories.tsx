@@ -1,28 +1,28 @@
 import 'animate.css'
 import { useNavigate } from 'react-router-dom'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
+import { Item } from '../../../../gql/generated/schema'
+//TODO: THIS IS AN IMAGE BY DEFAULT, NEED TO CHANGE THAT LATER
+import image from '../../../../assets/img/pantalon.png'
 
-interface Props {
-  title: string
-  image: any
-  product: number
-  price: number
-}
+export type ItemCardProps = { item: Item }
 
-export default function Categories({ title, image, price, product }: Props) {
+export default function ProductCard({ item }: ItemCardProps) {
+  const { id, name, price } = item
+
   const navigate = useNavigate()
 
-  const handleClick = () => {
-    navigate('/products')
+  const handleClick = (productId: string) => {
+    navigate(`/products/${productId}`)
   }
   return (
     <Container>
-      <Card onClick={handleClick}>
+      <Card onClick={() => handleClick(id)}>
         <ImgContainer>
-          <Img src={image} />
+          <Img src={image.toString()} />
         </ImgContainer>
         <ContainerText>
-          <Title>{title.toUpperCase()}</Title>
+          <Title>{name.toUpperCase()}</Title>
           <Price>{price + ' €'}</Price>
         </ContainerText>
       </Card>

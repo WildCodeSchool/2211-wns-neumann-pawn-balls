@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import styled, { css } from 'styled-components'
+import FilterSVG from './SVGComponent/FilterSVG'
 import KayakSVG from './SVGComponent/KayakSVG'
 import SkiSVG from './SVGComponent/SkiSVG'
 import SnowSVG from './SVGComponent/SnowSVG'
@@ -7,7 +8,54 @@ import SurfSVG from './SVGComponent/SurfSVG'
 import TennisSVG from './SVGComponent/TennisSVG'
 import TrekSvg from './SVGComponent/TrekSVG'
 import VeloSVG from './SVGComponent/VeloSVG'
-import FilterSVG from './SVGComponent/FilterSVG'
+
+type Filter = {
+  name: string
+  svgElement: (isSelected: boolean) => JSX.Element
+}
+
+enum SportsSuggestions {
+  TREKKING = 'Trekking',
+  SURF = 'Surf',
+  SNOW = 'Snow',
+  KAYAK = 'Kayak',
+  TENNIS = 'Tennis',
+  VELO = 'Velo',
+  SKI = 'Ski',
+}
+
+const SELECTED_COLOR = '#4ECB71'
+
+const mockFilters = [
+  {
+    name: 'Trekking',
+    svgElement: (isSelected: boolean) => TrekSvg(isSelected ? { color: SELECTED_COLOR } : {}),
+  },
+  {
+    name: 'Surf',
+    svgElement: (isSelected: boolean) => SurfSVG(isSelected ? { color: SELECTED_COLOR } : {}),
+  },
+  {
+    name: 'Snow',
+    svgElement: (isSelected: boolean) => SnowSVG(isSelected ? { color: SELECTED_COLOR } : {}),
+  },
+  {
+    name: 'Kayak',
+    svgElement: (isSelected: boolean) => KayakSVG(isSelected ? { color: SELECTED_COLOR } : {}),
+  },
+  {
+    name: 'Tennis',
+    svgElement: (isSelected: boolean) => TennisSVG(isSelected ? { color: SELECTED_COLOR } : {}),
+  },
+  {
+    name: 'Velo',
+    svgElement: (isSelected: boolean) => VeloSVG(isSelected ? { color: SELECTED_COLOR } : {}),
+  },
+  {
+    name: 'Ski',
+    svgElement: (isSelected: boolean) => SkiSVG(isSelected ? { color: SELECTED_COLOR } : {}),
+  },
+]
 
 export default function FilterBar() {
   const [isSectionSelected, setSectionSelected] = useState('')
@@ -19,49 +67,17 @@ export default function FilterBar() {
   return (
     <Container>
       <RowFilter>
-        <ContainerLogo onClick={() => handleSelectedSection('Trekking')}>
-          <TrekSvg color={isSectionSelected === 'Trekking' ? '#4ECB71' : undefined} />
-          <Text $isSelected={isSectionSelected === 'Trekking'}>Trekking</Text>
-          {isSectionSelected === 'Trekking' && <SelectedLine />}
-        </ContainerLogo>
-
-        <ContainerLogo onClick={() => handleSelectedSection('Surf')}>
-          <SurfSVG color={isSectionSelected === 'Surf' ? '#4ECB71' : undefined} />
-          <Text $isSelected={isSectionSelected === 'Surf'}>Surf</Text>
-          {isSectionSelected === 'Surf' && <SelectedLine />}
-        </ContainerLogo>
-
-        <ContainerLogo onClick={() => handleSelectedSection('Snow')}>
-          <SnowSVG color={isSectionSelected === 'Snow' ? '#4ECB71' : undefined} />
-          <Text $isSelected={isSectionSelected === 'Snow'}>Snow</Text>
-          {isSectionSelected === 'Snow' && <SelectedLine />}
-        </ContainerLogo>
-
-        <ContainerLogo onClick={() => handleSelectedSection('Kayak')}>
-          <KayakSVG color={isSectionSelected === 'Kayak' ? '#4ECB71' : undefined} />
-          <Text $isSelected={isSectionSelected === 'Kayak'}>Kayak</Text>
-          {isSectionSelected === 'Kayak' && <SelectedLine />}
-        </ContainerLogo>
-
-        <ContainerLogo onClick={() => handleSelectedSection('Tennis')}>
-          <TennisSVG color={isSectionSelected === 'Tennis' ? '#4ECB71' : undefined} />
-          <Text $isSelected={isSectionSelected === 'Tennis'}>Tennis</Text>
-          {isSectionSelected === 'Tennis' && <SelectedLine />}
-        </ContainerLogo>
-
-        <ContainerLogo onClick={() => handleSelectedSection('Velo')}>
-          <VeloSVG color={isSectionSelected === 'Velo' ? '#4ECB71' : undefined} />
-          <Text $isSelected={isSectionSelected === 'Velo'}>Velo</Text>
-          {isSectionSelected === 'Velo' && <SelectedLine />}
-        </ContainerLogo>
-
-        <ContainerLogo onClick={() => handleSelectedSection('Ski')}>
-          <SkiSVG color={isSectionSelected === 'Ski' ? '#4ECB71' : undefined} />
-          <Text $isSelected={isSectionSelected === 'Ski'}>Ski</Text>
-          {isSectionSelected === 'Ski' && <SelectedLine />}
-        </ContainerLogo>
-
-        <FilterBtn>
+        {mockFilters.map((filter) => {
+          const isSelected = isSectionSelected === filter.name
+          return (
+            <ContainerLogo key={filter.name} onClick={() => handleSelectedSection(filter.name)}>
+              {filter.svgElement(isSelected)}
+              <Text $isSelected={isSelected}>{filter.name}</Text>
+              {isSelected && <SelectedLine />}
+            </ContainerLogo>
+          )
+        })}
+        <FilterBtn onClick={() => alert('RAJOUTER UNE MODAL !')}>
           <FilterSVG />
           <TextFilter>Filtres</TextFilter>
         </FilterBtn>
