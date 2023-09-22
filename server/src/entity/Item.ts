@@ -38,7 +38,7 @@ export class ItemInput {
     name!: string;
 
     @Field()
-    price!: number;
+    price!: string;
 
     @Field()
     description!: string;
