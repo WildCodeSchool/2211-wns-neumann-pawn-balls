@@ -1,13 +1,15 @@
+import { Search } from '@styled-icons/fluentui-system-filled/Search'
+import { ShoppingBasket2 } from '@styled-icons/remix-fill/ShoppingBasket2'
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useGetProfileQuery, useLogoutMutation } from '../../../../gql/generated/schema'
-import ModalLogin from '../../../Auth/ModalLogin'
 import styled, { css } from 'styled-components'
-import { ShoppingBasket2 } from '@styled-icons/remix-fill/ShoppingBasket2'
-import { Search } from '@styled-icons/fluentui-system-filled/Search'
+import { useGetProfileQuery, useLogoutMutation } from '../../../../gql/generated/schema'
+import useCart from '../../../../services/hooks/useCart'
+import ModalLogin from '../../../Auth/ModalLogin'
 import Logo from './Logo'
 
 export default function Nav() {
+  const { cartLength, cart } = useCart()
   const [show, setShow] = useState(false)
   const [showInput, setShowInput] = useState(false)
 
@@ -47,15 +49,16 @@ export default function Nav() {
 
   return (
     <Container>
-      <Pawnballs />
       <ButtonContainer>
+        <Pawnballs onClick={() => navigate('/')} />
         {showInput && <SearchInput ref={searchInputRef} type="text" placeholder="Rechercher..." />}
         {!showInput && (
           <ContainerSearch onClick={handleShowInput}>
             <SearchBtn />
           </ContainerSearch>
         )}
-        <BasketLogo />
+        nombre de produit dans le panier {cartLength}
+        <BasketLogo onClick={() => navigate('/cart')} />
         {currentUser?.profile ? (
           <Button
             onClick={async () => {
@@ -129,7 +132,7 @@ const SearchBtn = styled(Search)`
 `
 
 const Pawnballs = styled(Logo)`
-  position: absolute;
+  position: left;
   margin: 12px 16px;
 `
 

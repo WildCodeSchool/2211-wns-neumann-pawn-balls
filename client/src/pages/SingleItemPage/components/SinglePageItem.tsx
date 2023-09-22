@@ -1,17 +1,13 @@
 /* eslint-disable max-len */
 import { useNavigate, useParams } from 'react-router-dom'
 import { useItemQuery } from '../../../gql/generated/schema'
+import useCart from '../../../services/hooks/useCart'
+import { Item } from '../../Cart/service/Cart.types'
 import './singlepage.css'
-
-export interface Item {
-  id: string
-  name: string
-  price: number
-  description: string
-}
 
 export function SinglePageItem() {
   const { id } = useParams<{ id: string }>()
+  const { addToCart } = useCart()
 
   if (!id) {
     throw new Error()
@@ -44,7 +40,13 @@ export function SinglePageItem() {
   }
 
   const onAddToCartClick = () => {
-    console.log(`ajouté au panier: ${currentItem}`)
+    const itemToAdd = {
+      id: currentItem.id as Item['id'],
+      image: '',
+      name: currentItem.name,
+      price: currentItem.price,
+    }
+    addToCart(itemToAdd)
   }
 
   return (

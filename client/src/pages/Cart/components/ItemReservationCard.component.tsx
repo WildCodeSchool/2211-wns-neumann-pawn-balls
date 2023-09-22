@@ -2,7 +2,7 @@ import { dateToWrittenDate } from '../../../utils/date'
 import { Cart } from '../service/Cart'
 import { CartItem, Item } from '../service/Cart.types'
 
-export default function ItemReservationCard(props: { cart: Cart }) {
+export default function ItemReservationCard(props: { cart: Cart<Item> }) {
   const start = dateToWrittenDate(props.cart.reservation.start)
   const end = dateToWrittenDate(props.cart.reservation.end)
 
@@ -20,12 +20,12 @@ export default function ItemReservationCard(props: { cart: Cart }) {
   )
 }
 
-export function ItemReservationFeed(props: { items: CartItem[] }) {
+export function ItemReservationFeed(props: { items: CartItem<Item>[] }) {
   return (
     <div className="item-reservation-feed">
       {props.items.map((item, key) => (
         <li className="list-group-item" key={key}>
-          <ItemReservationObject item={item.item} />
+          <ItemReservationObject item={item.product} />
         </li>
       ))}
     </div>
@@ -38,33 +38,6 @@ export function ItemReservationObject(props: { item: Item }) {
     <div className="d-flex flex-row">
       <div className="item-img">{props.item.image}</div>
       <div className="item-name">{props.item.name}</div>
-    </div>
-  )
-}
-
-const itemToAdd: Item = {
-  id: 1 as Item['id'],
-  image: 'img',
-  name: 'name ski',
-  price: 10000,
-}
-
-const cartItem = {
-  item: itemToAdd,
-  quantity: 1,
-}
-
-const listItem = [cartItem, cartItem, cartItem, cartItem]
-
-export function Random() {
-  return (
-    <div className="card" style={{ width: '18rem' }}>
-      <ul className="list-group list-group-flush">
-        <ItemReservationFeed items={listItem} />
-        <li className="list-group-item">
-          <ItemReservationObject item={itemToAdd} />
-        </li>
-      </ul>
     </div>
   )
 }

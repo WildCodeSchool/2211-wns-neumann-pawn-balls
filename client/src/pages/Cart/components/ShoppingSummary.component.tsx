@@ -1,16 +1,19 @@
 import { Button } from 'react-bootstrap'
+import useCart from '../../../services/hooks/useCart'
 import { Cart } from '../service/Cart'
 import { Item } from '../service/Cart.types'
 import './ShoppingSummary.css'
 
-export default function ShoppingSummary(props: { cart: Cart }) {
+export default function ShoppingSummary() {
+  const { cart, addToCart, removeOneFromCart } = useCart()
+
   return (
     <div className="card" style={{ width: '30rem' }}>
       <ul className="list-group list-group-flush">
-        <ItemShoppingFeed cart={props.cart} />
+        <ItemShoppingFeed cart={cart} addToCart={addToCart} removeOneFromCart={removeOneFromCart} />
       </ul>
       <div className="d-flex justify-content-end">
-        <div className="cart-cost">Total Price: {props.cart.GetCartCost()} €</div>
+        <div className="cart-cost">Total Price: {cart.GetCartCost()} €</div>
       </div>
 
       <button type="button" className="payment-btn btn">
@@ -20,12 +23,22 @@ export default function ShoppingSummary(props: { cart: Cart }) {
   )
 }
 
-export function ItemShoppingFeed(props: { cart: Cart }) {
+export function ItemShoppingFeed(props: {
+  cart: Cart<Item>
+  addToCart: (item: Item) => void
+  removeOneFromCart: (item: Item) => void
+}) {
   return (
     <div className="item-shopping-feed">
       {props.cart.items.map((item, key) => (
         <li className="list-group-item" key={key}>
-          <ItemReservationObject key={key} item={item.item} cart={props.cart} />
+          <ItemReservationObject
+            key={key}
+            item={item.product}
+            cart={props.cart}
+            addToCart={props.addToCart}
+            removeOneFromCart={props.removeOneFromCart}
+          />
         </li>
       ))}
     </div>
@@ -33,8 +46,14 @@ export function ItemShoppingFeed(props: { cart: Cart }) {
 }
 
 //This component is used as an item object from a list of items
-export function ItemReservationObject(props: { item: Item; cart: Cart }) {
+export function ItemReservationObject(props: {
+  item: Item
+  cart: Cart<Item>
+  addToCart: (item: Item) => void
+  removeOneFromCart: (item: Item) => void
+}) {
   const cartItem = props.cart.GetItemById(props.item.id)
+
   if (!cartItem) {
     return <div></div>
   }
@@ -45,10 +64,7 @@ export function ItemReservationObject(props: { item: Item; cart: Cart }) {
       <div className="item-quantity">
         <Button
           onClick={() => {
-            console.log({ item: props.item })
-            props.cart.RemoveOneFromCart(props.item)
-            console.log('Remove One')
-            console.log({ cart: props.cart })
+            props.removeOneFromCart(props.item)
           }}
         >
           -
@@ -56,10 +72,7 @@ export function ItemReservationObject(props: { item: Item; cart: Cart }) {
         {cartItem.quantity}
         <Button
           onClick={() => {
-            console.log({ item: props.item })
-            props.cart.AddToCart(props.item)
-            console.log('Add One')
-            console.log({ cart: props.cart })
+            props.addToCart(props.item)
           }}
         >
           +
