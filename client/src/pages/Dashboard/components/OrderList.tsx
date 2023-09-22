@@ -161,7 +161,7 @@ const Menu = styled.div`
 const MenuItem = styled.div<{ $isClickedDiv: boolean }>`
   display: flex;
   justify-content: center;
-  border-bottom: ${(props) => (props.$isClickedDiv ? '3px solid #000000' : '1px solid #A1A1A1')};
+  border-bottom: ${(props) => (props.$isClickedDiv ? '2px solid #000000' : '1px solid #A1A1A1')};
   width: 50%;
   cursor: pointer;
   font-weight: ${(props) => (props.$isClickedDiv ? '400' : '200')};

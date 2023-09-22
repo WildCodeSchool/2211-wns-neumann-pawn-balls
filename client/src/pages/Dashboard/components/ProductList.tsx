@@ -1,11 +1,19 @@
+import {useState} from 'react'
+import ModalProduct from './ModalProduct'
 import styled from 'styled-components'
 
 export default function ProductList() {
+    const [show, setShow] = useState(false)
+    const handleClose = () => setShow(false)
+    const handleShow = () => setShow(true)
+
+    
     return (
         <Wrapper>
             <TitleBox>
                 <Title>Nos articles</Title>
-                <AddArticleButton>+ Ajouter un article</AddArticleButton>
+                <AddArticleButton onClick={() => handleShow()}>+    Ajouter un article</AddArticleButton>
+                {show && <ModalProduct show={show} handleClose={handleClose} />}
             </TitleBox>
         </Wrapper>
     )
@@ -26,8 +34,9 @@ const TitleBox = styled.div`
     width: 100%;
 `
 const AddArticleButton = styled.button`
-    width: 250px;
-    padding: 10px;
-    border: 1px solid #FFFFFF;
+    width: 200px;
+    padding: 15px;
+    border: 1px solid #d9d9d9;
     border-radius: 8px;
+    background-color: transparent;
 `

@@ -1,0 +1,8 @@
+mutation CreateItem($data: ItemInput!) {
+  createItem(data: $data) {
+    description
+    id
+    name
+    price
+  }
+}
