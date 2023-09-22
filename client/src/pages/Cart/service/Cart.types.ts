@@ -21,19 +21,24 @@ export function createItemReservation({ start = new Date(), reservationLength = 
 
 //#endregion
 
-export type Item = {
-  id: number & { _brand: 'item_id' }
-  image: string
+export interface BaseItem {
+  id: string
   name: string
   price: number
 }
 
-export class CartItem {
-  item: Item
+export type Item = {
+  id: string & { _brand: 'item_id' }
+  image: string
+  name: string
+  price: number
+}
+export class CartItem<T extends BaseItem> {
+  product: T
   quantity: number
 
-  constructor(item: Item, quantity?: number) {
-    this.item = item
+  constructor({ item, quantity }: { item: T; quantity?: number }) {
+    this.product = item
     this.quantity = quantity ?? 1
   }
 }

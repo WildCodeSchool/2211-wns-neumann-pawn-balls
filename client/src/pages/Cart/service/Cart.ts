@@ -1,16 +1,16 @@
-import { CartItem, Item, ItemReservationDates, createItemReservation } from './Cart.types'
+import { BaseItem, CartItem, ItemReservationDates, createItemReservation } from './Cart.types'
 
 //if an item is stored in someone's cart it is not removed from available items
 //for now which could create conflicts
 //maybe add to Item a boolean to say if it is in a cart or not
 //which will be changed when adding or removing from cart
-export class Cart {
-  items: CartItem[]
+export class Cart<T extends BaseItem> {
+  items: CartItem<T>[]
   reservation: ItemReservationDates
 
-  constructor({ items, reservation }: { items?: CartItem[]; reservation?: ItemReservationDates }) {
-    this.items = items ?? []
-    this.reservation = reservation ?? createItemReservation({})
+  constructor(content?: { items?: CartItem<T>[]; reservation?: ItemReservationDates }) {
+    this.items = content?.items ?? []
+    this.reservation = content?.reservation ?? createItemReservation({})
   }
 
   GetCart() {
@@ -20,25 +20,25 @@ export class Cart {
     }
   }
 
-  GetItemById(itemId: Item['id']) {
-    return this.items.find((item) => item.item.id === itemId)
+  GetItemById(itemId: T['id']) {
+    return this.items.find((cartItem) => cartItem.product.id === itemId)
   }
 
-  IsInCart(item: Item) {
-    const items = this.items.map((itemCart) => itemCart.item)
-    return items.indexOf(item)
+  IsInCart(item: T) {
+    const items = this.items.map((cartItem) => cartItem.product.name)
+    return items.indexOf(item.name)
   }
 
-  AddToCart(item: Item) {
+  AddToCart(item: T) {
     const index = this.IsInCart(item)
     if (index === -1) {
-      this.items.push({ item, quantity: 1 })
+      this.items.push(new CartItem<T>({ item, quantity: 1 }))
     } else {
       this.items[index].quantity++
     }
   }
 
-  RemoveOneFromCart(item: Item) {
+  RemoveOneFromCart(item: T) {
     const index = this.IsInCart(item)
     if (index !== -1) {
       this.items[index].quantity--
@@ -49,8 +49,8 @@ export class Cart {
     this.items = []
   }
 
-  GetItemCost(cartItem: CartItem) {
-    return cartItem.item.price * cartItem.quantity
+  GetItemCost(cartItem: CartItem<T>) {
+    return cartItem.product.price * cartItem.quantity
   }
 
   GetNumberOfArticle() {
