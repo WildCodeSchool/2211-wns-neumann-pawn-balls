@@ -1,12 +1,23 @@
 import {useState} from 'react'
 import ModalProduct from './ModalProduct'
 import styled from 'styled-components'
+import { useItemsQuery, Item } from '../../../gql/generated/schema'
+import ProductCard from './ProductCard'
 
 export default function ProductList() {
     const [show, setShow] = useState(false)
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
 
+    const {data: products, loading, error} = useItemsQuery()
+
+    if (loading) {
+        return (
+          <div className="spinner-border" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+        )
+      }
     
     return (
         <Wrapper>
@@ -15,6 +26,13 @@ export default function ProductList() {
                 <AddArticleButton onClick={() => handleShow()}>+    Ajouter un article</AddArticleButton>
                 {show && <ModalProduct show={show} handleClose={handleClose} />}
             </TitleBox>
+            <MainContainer>
+                {products ? 
+                    products.getAllItems.map((product: Item, index: number) => 
+                    <ProductCard key={index} product={product} />
+                    ) 
+                    : <p>Aucun article</p>}
+            </MainContainer>
         </Wrapper>
     )
 }
@@ -39,4 +57,12 @@ const AddArticleButton = styled.button`
     border: 1px solid #d9d9d9;
     border-radius: 8px;
     background-color: transparent;
+`
+const MainContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+    padding: 20px;
 `

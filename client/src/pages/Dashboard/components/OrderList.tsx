@@ -116,7 +116,7 @@ export default function OrderList() {
         <br />
         {indexValue === '0' ? (
           actualOrders.length > 0 ? (
-            <DataGrid columns={columns} rows={mapRows(actualOrders)} />
+            <DataGrid style={{background: 'transparent'}} columns={columns} rows={mapRows(actualOrders)} />
           ) : (
             null
           )
