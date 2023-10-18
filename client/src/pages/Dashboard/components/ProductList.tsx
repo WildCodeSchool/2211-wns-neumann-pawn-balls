@@ -63,6 +63,7 @@ const MainContainer = styled.div`
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 10px;
     padding: 20px;
 `

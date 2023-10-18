@@ -13,20 +13,19 @@ export default function ProductCard({product}: Props) {
                 <Img src={img} />
             </ImgContainer>
             <Title>{product?.name.toUpperCase()}</Title>
-            <p>{product?.description}</p>
             <Button>Voir la fiche</Button>
         </MainContainer>
     )
 }
 
 const MainContainer = styled.div`
-    width: 200px;
+    width: 220px;
     border: solid 2px #4ECB71;
     padding: 20px;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 15px;
     margin-top: 20px;
 `
 
@@ -55,5 +54,5 @@ const Button = styled.button`
 `
 
 const Title = styled.h4`
-    font-weight: 400;
+    font-weight: bold;
 `

@@ -11,7 +11,9 @@ type Props = {
   }
 
 export default function ModalProduct({show, handleClose}: Props) {
-  const [createItem, {error, data}] = useCreateItemMutation() 
+  const [createItem, {error, data}] = useCreateItemMutation({refetchQueries: [
+    'getAllItems'
+  ]}) 
   const formFieldsAddProduct = [
     {
       name: 'name',
