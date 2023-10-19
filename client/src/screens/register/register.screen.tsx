@@ -9,15 +9,18 @@ export function RegisterScreen() {
     {
       name: 'username',
       validate: (name: string) => isLengthBetween({ text: name, min: 3, max: 12 }) && isAlphanumeric({ text: name }),
+      label: 'Pseudo'
     },
     {
       name: 'email',
       validate: (name: string) => isValidEmail({ text: name }),
+      label: 'Adresse mail'
     },
     {
       name: 'password',
       privateInfos: true,
       validate: (name: string) => isLengthBetween({ text: name, min: 8, max: 200 }),
+      label: 'Mot de passe'
     },
   ]
 

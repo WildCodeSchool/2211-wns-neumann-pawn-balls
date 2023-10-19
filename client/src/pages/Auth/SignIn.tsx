@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useNavigate } from 'react-router-dom'
 import { styled } from 'styled-components'
+import Cookies from 'js-cookie'
 
 interface Props {
   goToSignUpPage: (route: string) => void
@@ -17,7 +18,14 @@ export default function SignIn({ goToSignUpPage }: Props) {
     password: '',
   })
   const navigate = useNavigate()
-
+  /*function navigateToDashboard(token: string) {
+    const role = Cookies.get(token)
+    console.log('token', token)
+    console.log('role',)
+    if (role === 'admin') {
+      navigate('/dashboard')
+    }
+  }*/
   const [login, { error, data }] = useLoginMutation()
 
   const { data: currentUser, client } = useGetProfileQuery({
@@ -26,7 +34,7 @@ export default function SignIn({ goToSignUpPage }: Props) {
 
   const onSubmit = async (dataForm: FormDataType) => {
     try {
-      await login({ variables: { data: dataForm as UserLoginInput } })
+      const res = await login({ variables: { data: dataForm as UserLoginInput } })
       toast.success('Tu es connecté !', {
         position: 'bottom-right',
         autoClose: 3000,
@@ -37,7 +45,10 @@ export default function SignIn({ goToSignUpPage }: Props) {
         progress: undefined,
         theme: 'light',
       })
-      navigate('/dashboard')
+      if (res.data) {
+        //navigateToDashboard(res.data.login)
+        navigate('/dashboard')
+      }
     } catch (err: any) {
       if (err?.message === 'invalid credentials') {
         toast.error('Ton email ou mot de passe est pas valide, réessaie 🙂', {
@@ -56,13 +67,15 @@ export default function SignIn({ goToSignUpPage }: Props) {
 
   const formFieldsSignIn: FormField[] = [
     {
-      name: 'Adresse mail',
+      name: 'email',
       validate: (name: string) => isValidEmail({ text: name }),
+      label: 'Adresse mail'
     },
     {
-      name: 'Mot de passe',
+      name: 'password',
       privateInfos: true,
       validate: (password: string) => isLengthBetween({ text: password, min: 8, max: 200 }),
+      label: 'Mot de passe'
     },
   ]
   return (

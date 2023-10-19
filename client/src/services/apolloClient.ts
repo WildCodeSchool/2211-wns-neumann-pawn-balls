@@ -1,7 +1,11 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client'
 
 const client = new ApolloClient({
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache(
+    {
+      // addTypename: false
+    }
+  ),
   defaultOptions: {
     query: {
       fetchPolicy: 'cache-first',

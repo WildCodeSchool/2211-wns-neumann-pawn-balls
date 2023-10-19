@@ -36,7 +36,7 @@ class Order {
 
   @ManyToOne(() => User, user => user.orders)
   @JoinColumn({ name: 'user_id' })
-  @Field(() => User)
+  @Field(() => User, { nullable: true })
   user?: User;
 
   @OneToMany(() => OrderLine, orderLine => orderLine.order, { cascade: true })
@@ -44,15 +44,23 @@ class Order {
   orderLines!: OrderLine[];
 }
 
+
+@InputType()
+export class ItemAndQuantity {
+  @Field()
+  id!: string;
+
+  @Field()
+  quantity!: number;
+}
+
 @InputType()
 export class OrderInput {
-  @Field()
-  cost!: number;
 
   @Field()
   start!: Date;
 
-  @Field({ nullable: true })
+  @Field()
   end!: Date;
 
   @Field()
@@ -64,11 +72,11 @@ export class OrderInput {
   @Field()
   phoneNumber!: string;
 
-  @Field()
+  @Field({ nullable: true })
   userId?: string;
 
-  @Field(() => [String])
-  unitItems!: string[];
+  @Field(() => [ItemAndQuantity])
+  items!: ItemAndQuantity[];
 }
 
 export default Order;

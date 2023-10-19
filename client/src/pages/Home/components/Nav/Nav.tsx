@@ -45,6 +45,8 @@ export default function Nav() {
     errorPolicy: 'ignore',
   })
 
+  console.log(currentUser)
+
   return (
     <Container>
       <Pawnballs />

@@ -1,8 +1,9 @@
 import { ApolloError } from 'apollo-server-errors';
 import { Arg, Mutation, Query, Resolver } from 'type-graphql';
 import datasource from '../db';
-import Order, { OrderInput } from '../entity/Order';
+import Order, { type ItemAndQuantity, OrderInput } from '../entity/Order';
 import OrderLine from '../entity/OrderLine';
+import Item from '../entity/Item'
 import UnitItem from '../entity/UnitItem';
 import User from '../entity/User';
 
@@ -20,20 +21,34 @@ export class OrderResolver {
 
   @Mutation(() => Order)
   async createOrder(@Arg('data', { validate: false }) data: OrderInput): Promise<Order> {
-    const user = await datasource.getRepository(User).findOne({ where: { id: data.userId } });
-
-    if (user === null) {
-      throw new Error('User not found');
-    }
 
     const order = new Order();
-    order.cost = data.cost;
     order.start = data.start;
     order.end = data.end;
     order.address = data.address;
     order.bindingEmail = data.bindingEmail;
     order.phoneNumber = data.phoneNumber;
-    order.user = user;
+    
+    const user = await datasource.getRepository(User).findOne({ where: { id: data.userId } });
+    if (user !== null) {
+      order.user = user;
+    }
+
+    async function calculateCostOfOrder(items: ItemAndQuantity[]): Promise<number> {
+      let cost = 0
+      await Promise.all(items.map(async (element) => {
+        const item = await datasource.getRepository(Item).findOne({ where: { id: element.id } });
+        if (item === null) {
+          throw new Error("Missing item");
+        }
+
+        cost+= item.price*element.quantity
+      }))
+
+      return cost
+    }
+
+    order.cost = await calculateCostOfOrder(data.items)
 
     /* function checkUnitAvailability(unitId) {
           const orderLine = await datasource.getRepository(OrderLine).find({
@@ -53,7 +68,7 @@ export class OrderResolver {
 
     const savedOrder = await datasource.getRepository(Order).save(order);
 
-    for (let i = 0; i < data.unitItems.length; i++) {
+    /* for (let i = 0; i < data.unitItems.length; i++) {
       const unit = await datasource.getRepository(UnitItem).findOneOrFail({
         where: {
           id: data.unitItems[i],
@@ -69,7 +84,7 @@ export class OrderResolver {
         orderLine.unitItem = unit;
         await datasource.getRepository(OrderLine).save(orderLine);
       }
-    }
+    } */
 
     return await datasource.getRepository(Order).findOneOrFail({
       where: {
@@ -91,7 +106,6 @@ export class OrderResolver {
       throw new ApolloError(`Order with id ${id} not found`);
     }
 
-    orderAffected.cost = data.cost;
     orderAffected.start = data.start;
     orderAffected.end = data.end;
     orderAffected.address = data.address;

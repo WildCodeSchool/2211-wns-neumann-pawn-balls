@@ -7,7 +7,6 @@ interface Props {
 }
 
 export default function Product({ id, description }: Props) {
-  console.log('hello')
   const navigate = useNavigate()
   function onClickDisplaySingleProduct() {
     navigate(`/products/${id}`)

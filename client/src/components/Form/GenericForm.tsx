@@ -11,6 +11,7 @@ export type FormField = {
   name: string
   privateInfos?: boolean
   validate: (name: string) => boolean
+  label: string
 }
 
 export type FormDataType = Record<string, string>
@@ -43,7 +44,7 @@ export function GenericForm(prop: FormProps) {
         return (
           <FormFieldContainer key={field.name}>
             <div>
-              <label>{field.name}</label>
+              <label>{field.label}</label>
             </div>
             <Input
               name={field.name}
