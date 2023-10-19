@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { Item } from '../../../gql/generated/schema'
 import img from '../../../assets/img/baton-randonne.png'
+import { Navigation } from 'react-router-dom'
 
 type Props = {
     product: Item
